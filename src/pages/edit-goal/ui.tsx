@@ -3,33 +3,25 @@ import { memo, useCallback } from 'react'
 
 import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
 
-import { $goal, $goalLoading, ShowGoalTemplate } from 'entities/goal'
+import { $goal, $goalLoading } from 'entities/goal'
 
-import { controls, routes } from 'shared/routing'
+import { controls } from 'shared/routing'
 import { Button, PageLayout, Stack, Typography } from 'shared/ui'
 
 export const EditGoalPage = memo(function EditGoalPage() {
   const [goal, goalLoading] = useUnit([$goal, $goalLoading])
 
-  console.log('goal', goal)
-
-  const handleEditOpened = useCallback(() => {
-    if (!goal) {
-      return null
-    }
-    routes.goal.edit.open({ ...goal })
-  }, [goal])
-
   const handleBackClicked = useCallback(() => {
+    controls.back()
+  }, [])
+
+  const handleSaveClicked = useCallback(() => {
     controls.back()
   }, [])
 
   if (!goal || goalLoading) {
     return 'loading..'
   }
-
-  // handle{сущность с которой действие}{действие}
-  // handleNameEdited
 
   return (
     <PageLayout
@@ -40,16 +32,22 @@ export const EditGoalPage = memo(function EditGoalPage() {
       }
       footer={
         <Stack fullWidth direction="column" spacing={1}>
-          <Button fullWidth variant="secondary" color="danger" onClick={handleEditOpened}>
+          <Button
+            fullWidth
+            size="large"
+            variant="outlined"
+            color="danger"
+            onClick={handleBackClicked}
+          >
             Отменить
           </Button>
-          <Button fullWidth size="large" onClick={handleBackClicked}>
+          <Button fullWidth size="large" onClick={handleSaveClicked}>
             Сохранить
           </Button>
         </Stack>
       }
     >
-      <ShowGoalTemplate>
+      <Stack spacing={2}>
         <Typography level="title-lg" color="primary">
           Название цели
         </Typography>
@@ -59,7 +57,7 @@ export const EditGoalPage = memo(function EditGoalPage() {
           Описание цели
         </Typography>
         <GoalDescriptionTextarea value={goal.description} />
-      </ShowGoalTemplate>
+      </Stack>
     </PageLayout>
   )
 })

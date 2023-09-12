@@ -1,3 +1,3 @@
 import { routes } from 'shared/routing'
 
-export const currentRoute = routes.friendLists
+export const currentRoute = routes.friendsBooks

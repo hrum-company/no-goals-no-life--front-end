@@ -1,5 +1,5 @@
 import { useUnit } from 'effector-react'
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 
 import {
   $createGoalDescription,
@@ -10,7 +10,7 @@ import {
   createGoalNameChanged,
 } from 'features/goal'
 
-import { CreateGoalFormTemplate } from 'entities/goal'
+import { Stack } from 'shared/ui'
 
 export const CreateGoalForm = memo(function CreateGoalForm() {
   // Effector
@@ -21,15 +21,10 @@ export const CreateGoalForm = memo(function CreateGoalForm() {
     createGoalDescriptionChanged,
   ])
 
-  const formContent = useMemo(
-    () => (
-      <>
-        <GoalNameInput value={name} onChange={nameChanged} />
-        <GoalDescriptionTextarea value={description} onChange={descriptionChanged} />
-      </>
-    ),
-    [description, descriptionChanged, name, nameChanged]
+  return (
+    <Stack spacing={2}>
+      <GoalNameInput value={name} onChange={nameChanged} />
+      <GoalDescriptionTextarea value={description} onChange={descriptionChanged} />
+    </Stack>
   )
-
-  return <CreateGoalFormTemplate>{formContent}</CreateGoalFormTemplate>
 })

@@ -4,7 +4,7 @@ import { DateTime, ID, Name } from '../base-types'
  * Че-то там кто-то там.
  *
  * @param id - Уникальный идентификатор
- * @param listId - Уникальный идентификатор списка
+ * @param bookId - Уникальный идентификатор списка
  * @param name - Название
  * @param description - Описание
  * @param completed - Статус выполнения
@@ -13,7 +13,7 @@ import { DateTime, ID, Name } from '../base-types'
  */
 export interface Goal {
   id: ID
-  listId: ID
+  bookId: ID
 
   name: Name
   description?: string

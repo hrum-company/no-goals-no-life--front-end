@@ -1,3 +1,4 @@
+import { RouteInstance } from 'atomic-router'
 import { attach, createEffect, createEvent, createStore, sample } from 'effector'
 
 import { Goal, api } from 'shared/api'
@@ -5,14 +6,17 @@ import { routes } from 'shared/routing'
 
 const requestFindOneGoalFx = attach({ effect: api.goal.requestFindOneGoalFx })
 
-const $params = routes.goal.show.$params
-
 export const $goal = createStore<Goal | null>(null)
 
 export const $goalLoading = requestFindOneGoalFx.pending
 
-export const goalRequested = createEvent()
-export const goalReloaded = createEvent()
+interface GoalRequest {
+  id: number
+  bookId: number
+}
+
+export const goalRequested = createEvent<GoalRequest>()
+export const goalReloaded = createEvent<GoalRequest>()
 
 const redirectToHomeFx = createEffect(() => {
   routes.home.open()
@@ -20,8 +24,6 @@ const redirectToHomeFx = createEffect(() => {
 
 sample({
   clock: [goalRequested, goalReloaded],
-  source: { params: $params },
-  fn: ({ params }) => params,
   target: requestFindOneGoalFx,
 })
 
@@ -31,3 +33,15 @@ sample({
 })
 
 $goal.on(requestFindOneGoalFx.doneData, (_, goal) => goal)
+
+// External
+
+export function requestGoalSampleFactory(route: RouteInstance<GoalRequest>) {
+  sample({
+    clock: route.opened,
+    source: { params: route.$params, goal: $goal },
+    filter: ({ goal, params }) => !(goal && Number(params.id) === Number(goal?.id)),
+    fn: ({ params }) => params,
+    target: goalRequested,
+  })
+}

@@ -29,7 +29,7 @@ sample({
   clock: createGoalSubmited,
   source: { params: $params, name: $createGoalName, description: $createGoalDescription },
   filter: $createGoalCanSubmit,
-  fn: ({ params, ...other }) => ({ ...other, listId: params.listId }),
+  fn: ({ params, ...other }) => ({ ...other, bookId: params.bookId }),
   target: requestCreateGoalFx,
 })
 

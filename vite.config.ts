@@ -8,12 +8,6 @@ export default defineConfig({
   server: {
     https: true,
     port: 10888,
-    proxy: {
-      '/api': {
-        target: 'https://localhost:3000',
-        changeOrigin: true,
-      },
-    },
   },
   plugins: [react(), tsconfigPaths(), mkcert()],
 })

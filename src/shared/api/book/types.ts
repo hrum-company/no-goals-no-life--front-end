@@ -1,7 +1,7 @@
 import { DateTime, ID, Name } from '../base-types'
 import { Goal } from '../goal'
 
-type GoalListItem = Goal
+type BookItem = Goal
 
 /**
  * Returns the average of two numbers.
@@ -13,7 +13,7 @@ type GoalListItem = Goal
  * @param createdAt - дата создания списка
  * @param goals - Массив целей списка
  */
-export interface GoalList {
+export interface Book {
   id: ID
   userId: number
 
@@ -23,5 +23,5 @@ export interface GoalList {
 
   createdAt: DateTime
 
-  goals?: GoalListItem[]
+  goals?: BookItem[]
 }

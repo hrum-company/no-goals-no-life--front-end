@@ -8,11 +8,11 @@ export const routes = {
   onBoard: createRoute(),
   home: createRoute(),
   goal: {
-    create: createRoute<{ listId: number }>(),
-    show: createRoute<{ listId: number; id: number }>(),
-    edit: createRoute<{ listId: number; id: number }>(),
+    create: createRoute<{ bookId: number }>(),
+    show: createRoute<{ bookId: number; id: number }>(),
+    edit: createRoute<{ bookId: number; id: number }>(),
   },
-  friendLists: createRoute(),
+  friendsBooks: createRoute(),
 }
 
 export const controls = createRouterControls()
@@ -28,20 +28,20 @@ export const router = createHistoryRouter({
       route: routes.home,
     },
     {
-      path: '/goal-list/:listId/goal/create',
+      path: '/book/:bookId/goal/create',
       route: routes.goal.create,
     },
     {
-      path: '/goal-list/:listId/goal/:id',
+      path: '/book/:bookId/goal/show/:id',
       route: routes.goal.show,
     },
     {
-      path: '/goal-list/:listId/goal/:id/edit',
+      path: '/book/:bookId/goal/edit/:id',
       route: routes.goal.edit,
     },
     {
-      path: '/friends-lists',
-      route: routes.friendLists,
+      path: '/friends-books',
+      route: routes.friendsBooks,
     },
   ],
   controls,

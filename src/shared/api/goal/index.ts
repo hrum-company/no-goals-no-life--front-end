@@ -6,13 +6,13 @@ import { Goal } from './types'
 
 //#region Find One
 
-type FindOneGoalRequestFx = { id: ID; listId: ID }
+type FindOneGoalRequestFx = { id: ID; bookId: ID }
 type FindOneGoalResponse = Goal
 
 const requestFindOneGoalFx = createEffect<FindOneGoalRequestFx, FindOneGoalResponse>(
-  async ({ id, listId }) => {
+  async ({ id, bookId }) => {
     return request<FindOneGoalResponse>({
-      path: `/goal-list/${listId}/goal/${id}`,
+      path: `/book/${bookId}/goal/${id}`,
     })
   }
 )
@@ -21,15 +21,15 @@ const requestFindOneGoalFx = createEffect<FindOneGoalRequestFx, FindOneGoalRespo
 
 //#region Create
 
-type CreateGoalRequestFx = Omit<Goal, 'id' | 'completed' | 'createAt' | 'completedAt'>
-type CreateGoalRequest = Omit<CreateGoalRequestFx, 'listId'>
+type CreateGoalRequestFx = Omit<Goal, 'id' | 'completed' | 'createdAt' | 'completedAt'>
+type CreateGoalRequest = Omit<CreateGoalRequestFx, 'bookId'>
 type CreateGoalResponse = Goal
 
 const requestCreateGoalFx = createEffect<CreateGoalRequestFx, CreateGoalResponse>(
-  async ({ listId, ...data }) => {
+  async ({ bookId, ...data }) => {
     return request<Goal, CreateGoalRequest>({
       method: 'post',
-      path: `/goal-list/${listId}/goal`,
+      path: `/book/${bookId}/goal`,
       data,
     })
   }
@@ -40,14 +40,14 @@ const requestCreateGoalFx = createEffect<CreateGoalRequestFx, CreateGoalResponse
 //#region Edit
 
 type EditGoalRequestFx = Omit<Goal, 'name' | 'completed' | 'createAt' | 'completedAt'>
-type EditGoalRequest = Omit<EditGoalRequestFx, 'id' | 'listId'>
+type EditGoalRequest = Omit<EditGoalRequestFx, 'id' | 'bookId'>
 type EditGoalResponse = Goal
 
 const requestEditGoalFx = createEffect<EditGoalRequestFx, EditGoalResponse>(
-  async ({ id, listId, ...data }) => {
+  async ({ id, bookId, ...data }) => {
     return request<EditGoalResponse, EditGoalRequest>({
       method: 'put',
-      path: `/goal-list/${listId}/goal/${id}`,
+      path: `/book/${bookId}/goal/${id}`,
       data,
     })
   }

@@ -3,7 +3,7 @@ import { memo, useCallback } from 'react'
 
 import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
 
-import { $goal, $goalLoading, ShowGoalTemplate } from 'entities/goal'
+import { $goal, $goalLoading } from 'entities/goal'
 
 import { controls, routes } from 'shared/routing'
 import { Button, PageLayout, Stack, Typography } from 'shared/ui'
@@ -26,9 +26,6 @@ export const GoalPage = memo(function GoalPage() {
     return 'loading..'
   }
 
-  // handle{сущность с которой действие}{действие}
-  // handleNameEdited
-
   return (
     <PageLayout
       header={
@@ -38,7 +35,13 @@ export const GoalPage = memo(function GoalPage() {
       }
       footer={
         <Stack fullWidth direction="column" spacing={1}>
-          <Button fullWidth variant="secondary" color="danger" onClick={handleEditOpened}>
+          <Button
+            fullWidth
+            size="large"
+            variant="outlined"
+            color="neutral"
+            onClick={handleEditOpened}
+          >
             Редактировать
           </Button>
           <Button fullWidth size="large" onClick={handleBackClicked}>
@@ -47,7 +50,7 @@ export const GoalPage = memo(function GoalPage() {
         </Stack>
       }
     >
-      <ShowGoalTemplate>
+      <Stack spacing={2}>
         <Typography level="title-lg" color="primary">
           Название цели
         </Typography>
@@ -57,7 +60,7 @@ export const GoalPage = memo(function GoalPage() {
           Описание цели
         </Typography>
         <GoalDescriptionTextarea value={goal.description} readOnly />
-      </ShowGoalTemplate>
+      </Stack>
     </PageLayout>
   )
 })

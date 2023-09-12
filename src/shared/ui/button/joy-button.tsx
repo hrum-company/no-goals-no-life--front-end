@@ -10,7 +10,8 @@ type JoyButtonSize = 'sm' | 'md' | 'lg'
 
 const variantMap: Record<ButtonVariant, JoyButtonVariant> = {
   primary: 'solid',
-  secondary: 'soft',
+  secondary: 'plain',
+  outlined: 'outlined',
 }
 
 const sizeMap: Record<ButtonSize, JoyButtonSize> = {
