@@ -7,6 +7,7 @@ module.exports = {
   'singleQuote': true,
   'printWidth': 100,
   'proseWrap': 'always',
+  "singleAttributePerLine": true,
   
   'importOrder': [
     '^app$',

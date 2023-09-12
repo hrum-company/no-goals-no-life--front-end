@@ -3,13 +3,13 @@ import { memo, useCallback } from 'react'
 
 import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
 
-import { $goal, $goalLoading } from 'entities/goal'
+import { $$goal } from 'entities/goal'
 
 import { controls, routes } from 'shared/routing'
 import { Button, PageLayout, Stack, Typography } from 'shared/ui'
 
 export const GoalPage = memo(function GoalPage() {
-  const [goal, goalLoading] = useUnit([$goal, $goalLoading])
+  const [goal, goalLoading] = useUnit([$$goal.$item, $$goal.loadOne.$pending])
 
   const handleEditOpened = useCallback(() => {
     if (!goal) {

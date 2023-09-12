@@ -39,7 +39,7 @@ const requestCreateGoalFx = createEffect<CreateGoalRequestFx, CreateGoalResponse
 
 //#region Edit
 
-type EditGoalRequestFx = Omit<Goal, 'name' | 'completed' | 'createAt' | 'completedAt'>
+type EditGoalRequestFx = Omit<Goal, 'name' | 'completed' | 'createdAt' | 'completedAt'>
 type EditGoalRequest = Omit<EditGoalRequestFx, 'id' | 'bookId'>
 type EditGoalResponse = Goal
 

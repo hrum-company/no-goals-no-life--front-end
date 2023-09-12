@@ -8,6 +8,7 @@ export const $books = createStore<Book[]>([])
 export const $book = combine($books, (books) => (books.length ? books[0] : null))
 
 export const $booksLoading = requestBookAllFx.pending
+export const $booksLoaded = createStore<boolean>(false)
 
 export const booksRequested = createEvent()
 export const booksReloaded = createEvent()
@@ -19,3 +20,4 @@ sample({
 })
 
 $books.on(requestBookAllFx.doneData, (_, goalLists) => goalLists)
+$booksLoaded.on(requestBookAllFx.done, () => true)

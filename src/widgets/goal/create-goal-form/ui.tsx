@@ -1,30 +1,21 @@
 import { useUnit } from 'effector-react'
 import { memo } from 'react'
 
-import {
-  $createGoalDescription,
-  $createGoalName,
-  GoalDescriptionTextarea,
-  GoalNameInput,
-  createGoalDescriptionChanged,
-  createGoalNameChanged,
-} from 'features/goal'
+import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
+
+import { $$goal } from 'entities/goal'
 
 import { Stack } from 'shared/ui'
 
 export const CreateGoalForm = memo(function CreateGoalForm() {
   // Effector
-  const [name, nameChanged, description, descriptionChanged] = useUnit([
-    $createGoalName,
-    createGoalNameChanged,
-    $createGoalDescription,
-    createGoalDescriptionChanged,
-  ])
+  const name = useUnit($$goal.toCreate.name)
+  const description = useUnit($$goal.toCreate.description)
 
   return (
     <Stack spacing={2}>
-      <GoalNameInput value={name} onChange={nameChanged} />
-      <GoalDescriptionTextarea value={description} onChange={descriptionChanged} />
+      <GoalNameInput value={name.$value} onChange={name.changed} />
+      <GoalDescriptionTextarea value={description.$value} onChange={description.changed} />
     </Stack>
   )
 })

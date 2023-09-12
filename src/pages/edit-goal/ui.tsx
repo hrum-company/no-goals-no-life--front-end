@@ -1,7 +1,9 @@
 import { useUnit } from 'effector-react/compat'
 import { memo, useCallback } from 'react'
 
-import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
+import { EditGoalForm } from 'widgets/goal'
+
+import { EditGoalButton } from 'features/goal'
 
 import { $goal, $goalLoading } from 'entities/goal'
 
@@ -12,10 +14,6 @@ export const EditGoalPage = memo(function EditGoalPage() {
   const [goal, goalLoading] = useUnit([$goal, $goalLoading])
 
   const handleBackClicked = useCallback(() => {
-    controls.back()
-  }, [])
-
-  const handleSaveClicked = useCallback(() => {
     controls.back()
   }, [])
 
@@ -32,6 +30,8 @@ export const EditGoalPage = memo(function EditGoalPage() {
       }
       footer={
         <Stack fullWidth direction="column" spacing={1}>
+          <EditGoalButton />
+
           <Button
             fullWidth
             size="large"
@@ -39,25 +39,12 @@ export const EditGoalPage = memo(function EditGoalPage() {
             color="danger"
             onClick={handleBackClicked}
           >
-            Отменить
-          </Button>
-          <Button fullWidth size="large" onClick={handleSaveClicked}>
-            Сохранить
+            Назад
           </Button>
         </Stack>
       }
     >
-      <Stack spacing={2}>
-        <Typography level="title-lg" color="primary">
-          Название цели
-        </Typography>
-        <GoalNameInput value={goal.name} readOnly />
-
-        <Typography level="title-lg" color="primary">
-          Описание цели
-        </Typography>
-        <GoalDescriptionTextarea value={goal.description} />
-      </Stack>
+      <EditGoalForm />
     </PageLayout>
   )
 })
