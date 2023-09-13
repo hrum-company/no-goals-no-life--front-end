@@ -1,8 +1,8 @@
+import { Stack } from '@mui/joy'
 import { Link } from 'atomic-router-react'
 import { memo } from 'react'
 
 import { routes } from 'shared/routing'
-import { Stack } from 'shared/ui'
 
 import { GoalListItem } from './components'
 import styles from './styles.module.scss'
@@ -11,7 +11,7 @@ import { GoalListProps } from './types'
 export const GoalList = memo(function GoalList({ goals }: GoalListProps) {
   return (
     <Stack
-      fullWidth
+      sx={{ width: '100%' }}
       className={styles.wrapper}
       spacing={1}
     >

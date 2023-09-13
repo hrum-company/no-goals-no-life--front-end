@@ -1,6 +1,5 @@
+import { Card, Chip, Stack, Typography } from '@mui/joy'
 import { memo } from 'react'
-
-import { Card, Chip, Stack, Typography } from 'shared/ui'
 
 import classes from './styles.module.scss'
 import { GoalListItemProps } from './types'
@@ -8,7 +7,7 @@ import { GoalListItemProps } from './types'
 export const GoalListItem = memo(function GoalListItem({ goal, index }: GoalListItemProps) {
   return (
     <Card
-      variant="secondary"
+      variant="outlined"
       color="neutral"
       className={classes.root}
     >
@@ -37,7 +36,6 @@ export const GoalListItem = memo(function GoalListItem({ goal, index }: GoalList
         {goal.completed && (
           <Chip
             className={classes.right}
-            size="medium"
             variant="outlined"
             color="success"
           >

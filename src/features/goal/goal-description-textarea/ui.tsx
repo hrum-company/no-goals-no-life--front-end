@@ -1,7 +1,5 @@
-import { FormControl, FormHelperText, FormLabel } from '@mui/joy'
-import { memo } from 'react'
-
-import { Textarea, Typography } from 'shared/ui'
+import { FormControl, FormHelperText, FormLabel, Textarea, Typography } from '@mui/joy'
+import { ChangeEvent, memo, useCallback } from 'react'
 
 import classes from './styles.module.scss'
 import { GoalDescriptionTextareaProps } from './types'
@@ -13,6 +11,14 @@ export const GoalDescriptionTextarea = memo(function GoalDescriptionTextarea({
   readOnly = false,
   withHelperText = false,
 }: GoalDescriptionTextareaProps) {
+  // Handlers
+  const handleChanged = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      onChange(e.target.value)
+    },
+    [onChange]
+  )
+
   return (
     <FormControl className={classes.form}>
       <FormLabel>
@@ -26,8 +32,8 @@ export const GoalDescriptionTextarea = memo(function GoalDescriptionTextarea({
       <Textarea
         value={value}
         placeholder="Описание"
-        onChange={onChange}
-        size="large"
+        onChange={handleChanged}
+        size="lg"
         minRows={3}
         maxRows={3}
         readOnly={readOnly}

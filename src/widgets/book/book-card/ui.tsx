@@ -1,9 +1,8 @@
-import { Button, Card, CardActions, CircularProgress, Typography } from '@mui/joy'
+import { Button, Card, CardActions, CircularProgress, Stack, Typography } from '@mui/joy'
 import { Link } from 'atomic-router-react'
 import { memo } from 'react'
 
 import { routes } from 'shared/routing'
-import { Stack } from 'shared/ui'
 
 import { BookCardProps } from './types'
 

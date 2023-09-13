@@ -1,6 +1,5 @@
+import { Typography } from '@mui/joy'
 import { memo } from 'react'
-
-import { Typography } from 'shared/ui'
 
 import classes from '../styles.module.scss'
 import { HeaderProps } from '../types'

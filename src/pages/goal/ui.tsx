@@ -1,14 +1,11 @@
+import { Button, Card, Stack, Typography } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo, useCallback } from 'react'
-
-import { GoalDescriptionTextarea } from 'features/goal'
 
 import { $$goal, GoalInfoChips } from 'entities/goal'
 
 import { routes } from 'shared/routing'
 import {
-  Button,
-  Card,
   Footer,
   Header,
   HeaderBack,
@@ -18,8 +15,6 @@ import {
   PageLayoutContent,
   PageLayoutFooter,
   PageLayoutHeader,
-  Stack,
-  Typography,
 } from 'shared/ui'
 
 export const GoalPage = memo(function GoalPage() {
@@ -52,7 +47,7 @@ export const GoalPage = memo(function GoalPage() {
         <Stack spacing={2}>
           <Stack
             spacing={0.5}
-            fullWidth
+            sx={{ width: '100%' }}
           >
             <Typography
               level="title-lg"
@@ -61,16 +56,16 @@ export const GoalPage = memo(function GoalPage() {
               Название
             </Typography>
             <Card
-              fullWidth
-              variant="secondary"
+              sx={{ width: '100%' }}
+              variant="outlined"
             >
               <Typography>{goal.name}</Typography>
             </Card>
           </Stack>
 
           <Stack
+            sx={{ width: '100%' }}
             spacing={0.5}
-            fullWidth
           >
             <Typography
               level="title-lg"
@@ -79,8 +74,8 @@ export const GoalPage = memo(function GoalPage() {
               Описание
             </Typography>
             <Card
-              fullWidth
-              variant="secondary"
+              sx={{ width: '100%' }}
+              variant="outlined"
             >
               <Typography>{goal.description || 'Отсутствует'}</Typography>
             </Card>
@@ -94,7 +89,7 @@ export const GoalPage = memo(function GoalPage() {
         <Footer>
           <Button
             fullWidth
-            size="large"
+            size="lg"
             onClick={handleEditOpened}
           >
             Редактировать

@@ -1,3 +1,4 @@
+import { Stack } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
@@ -14,7 +15,6 @@ import {
   PageLayout,
   PageLayoutContent,
   PageLayoutHeader,
-  Stack,
 } from 'shared/ui'
 
 export const HomePage = memo(function GoalsListPage() {

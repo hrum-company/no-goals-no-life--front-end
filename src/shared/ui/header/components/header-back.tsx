@@ -1,7 +1,7 @@
+import { Button } from '@mui/joy'
 import { memo, useCallback } from 'react'
 
 import { controls } from 'shared/routing'
-import { Button } from 'shared/ui'
 
 import classes from '../styles.module.scss'
 
@@ -15,7 +15,7 @@ export const HeaderBack = memo(function HeaderBack() {
     <div className={classes.back}>
       <Button
         onClick={handleClick}
-        size="small"
+        size="sm"
       >
         Назад
       </Button>

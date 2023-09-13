@@ -1,9 +1,10 @@
+import { Button } from '@mui/joy'
 import { useUnit } from 'effector-react/effector-react.mjs'
 import { memo } from 'react'
 
 import { $$goal } from 'entities/goal'
 
-import { Button } from 'shared/ui'
+import 'shared/ui'
 
 import { createGoalSubmited } from './model'
 
@@ -20,7 +21,7 @@ export const CreateGoalButton = memo(function CreateGoalButton() {
     <Button
       onClick={submited}
       fullWidth
-      size="large"
+      size="lg"
       disabled={!canSubmit}
       loading={loading}
     >

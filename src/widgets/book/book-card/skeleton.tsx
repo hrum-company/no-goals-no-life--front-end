@@ -1,7 +1,5 @@
-import { Button, Card, CardActions, CircularProgress, Skeleton, Typography } from '@mui/joy'
+import { Card, CardActions, Skeleton, Stack, Typography } from '@mui/joy'
 import { memo } from 'react'
-
-import { Stack } from 'shared/ui'
 
 export const BookCardSkeleton = memo(function BookCardSkeleton() {
   return (

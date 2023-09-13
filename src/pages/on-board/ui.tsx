@@ -1,6 +1,7 @@
+import { Button, Typography } from '@mui/joy'
 import { memo, useMemo } from 'react'
 
-import { Button, PageLayout, Typography } from 'shared/ui'
+import { PageLayout } from 'shared/ui'
 
 export const OnBoardPage = memo(function OnBoardPage() {
   const decoratsiya = useMemo(() => <div>Suka</div>, [])
@@ -10,7 +11,12 @@ export const OnBoardPage = memo(function OnBoardPage() {
       <Typography>Title</Typography>
       <Typography>Description</Typography>
 
-      <Button fullWidth startDecorator={decoratsiya} color="warning" variant="secondary">
+      <Button
+        fullWidth
+        startDecorator={decoratsiya}
+        color="warning"
+        variant="plain"
+      >
         Продолжить
       </Button>
     </PageLayout>

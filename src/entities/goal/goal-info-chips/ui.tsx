@@ -1,17 +1,14 @@
+import { Chip, Stack, Typography } from '@mui/joy'
 import { memo } from 'react'
 
 import { ourMoment, rangeOfDates } from 'shared/helpers'
-import { Chip, Stack, Typography } from 'shared/ui'
 
 import classes from './styles.module.scss'
 import { GoalInfoChipsProps } from './types'
 
 export const GoalInfoChips = memo(function GoalInfoChips({ goal }: GoalInfoChipsProps) {
   return (
-    <Stack
-      className={classes.root}
-      fullWidth
-    >
+    <Stack className={classes.root}>
       <Typography
         level="title-lg"
         color="primary"
@@ -23,7 +20,6 @@ export const GoalInfoChips = memo(function GoalInfoChips({ goal }: GoalInfoChips
         className={classes.chips}
         direction="row"
         flexWrap="wrap"
-        fullWidth
       >
         <Chip
           variant="outlined"

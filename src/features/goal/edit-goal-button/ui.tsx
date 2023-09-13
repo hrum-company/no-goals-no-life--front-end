@@ -1,7 +1,6 @@
+import { Button } from '@mui/joy'
 import { useUnit } from 'effector-react/effector-react.mjs'
 import { memo } from 'react'
-
-import { Button } from 'shared/ui'
 
 import { $editGoalIsEdited, editGoalSubmited } from './model'
 
@@ -10,7 +9,12 @@ export const EditGoalButton = memo(function EditGoalButton() {
   const [submited, isEdited] = useUnit([editGoalSubmited, $editGoalIsEdited])
 
   return (
-    <Button onClick={submited} disabled={!isEdited} fullWidth size="large">
+    <Button
+      onClick={submited}
+      disabled={!isEdited}
+      fullWidth
+      size="lg"
+    >
       Сохранить изменения
     </Button>
   )

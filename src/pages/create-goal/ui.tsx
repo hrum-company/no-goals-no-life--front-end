@@ -14,7 +14,6 @@ import {
   PageLayoutContent,
   PageLayoutFooter,
   PageLayoutHeader,
-  Typography,
 } from 'shared/ui'
 
 export const CreateGoalPage = memo(function CreateGoalPage() {

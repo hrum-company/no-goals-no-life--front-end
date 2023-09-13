@@ -1,3 +1,4 @@
+import { Stack } from '@mui/joy'
 import { useUnit } from 'effector-react'
 import { memo } from 'react'
 
@@ -5,7 +6,7 @@ import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
 
 import { $$goal } from 'entities/goal'
 
-import { Stack } from 'shared/ui'
+import classes from './styles.module.scss'
 
 export const CreateGoalForm = memo(function CreateGoalForm() {
   // Effector
@@ -14,7 +15,7 @@ export const CreateGoalForm = memo(function CreateGoalForm() {
 
   return (
     <Stack
-      fullWidth
+      className={classes.root}
       spacing={2}
     >
       <GoalNameInput

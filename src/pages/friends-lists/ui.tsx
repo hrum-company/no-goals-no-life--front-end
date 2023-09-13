@@ -1,7 +1,7 @@
-import { Sheet } from '@mui/joy'
+import { Button, Sheet, Stack, Typography } from '@mui/joy'
 import { memo } from 'react'
 
-import { Button, PageLayout, Stack, Typography } from 'shared/ui'
+import { PageLayout } from 'shared/ui'
 
 interface List {
   name: string
@@ -41,7 +41,11 @@ const friendsLists: FriendsList[] = [
 
 export const FriendsListsPage = memo(function FriendsListsPage() {
   const renderFriendsList = (friendsList: FriendsList) => (
-    <Sheet key={friendsList.id} variant="soft" sx={{ p: 2, width: '100%', borderRadius: '16px' }}>
+    <Sheet
+      key={friendsList.id}
+      variant="soft"
+      sx={{ p: 2, width: '100%', borderRadius: '16px' }}
+    >
       <Stack spacing={1}>
         <Typography>{friendsList.user}</Typography>
         <Typography>Название: {friendsList.list.name}</Typography>
@@ -49,7 +53,7 @@ export const FriendsListsPage = memo(function FriendsListsPage() {
           Целей: {friendsList.list.completedGoalsCount.toString()} /{' '}
           {friendsList.list.goalsCount.toString()}
         </Typography>
-        {!friendsList.list.hidden && <Button size="small">Открыть</Button>}
+        {!friendsList.list.hidden && <Button size="sm">Открыть</Button>}
       </Stack>
     </Sheet>
   )

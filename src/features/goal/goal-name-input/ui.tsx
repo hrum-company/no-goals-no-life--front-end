@@ -1,7 +1,5 @@
-import { FormControl, FormHelperText, FormLabel } from '@mui/joy'
-import { memo } from 'react'
-
-import { Input, Typography } from 'shared/ui'
+import { FormControl, FormHelperText, FormLabel, Input, Typography } from '@mui/joy'
+import { ChangeEvent, memo, useCallback } from 'react'
 
 import classes from './styles.module.scss'
 import { GoalNameInputProps } from './types'
@@ -14,6 +12,14 @@ export const GoalNameInput = memo(function GoalNameInput({
   readOnly = false,
   withHelperText = false,
 }: GoalNameInputProps) {
+  // Handlers
+  const handleChanged = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value)
+    },
+    [onChange]
+  )
+
   return (
     <FormControl className={classes.form}>
       <FormLabel>
@@ -27,10 +33,10 @@ export const GoalNameInput = memo(function GoalNameInput({
       <Input
         value={value}
         placeholder="Название"
-        onChange={onChange}
+        onChange={handleChanged}
         fullWidth
-        variant="primary"
-        size="large"
+        variant="soft"
+        size="lg"
         color="neutral"
         disabled={disabled}
         readOnly={readOnly}
