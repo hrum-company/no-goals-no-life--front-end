@@ -7,11 +7,11 @@ export interface ButtonProps extends WithColor, WithDecorator {
   children?: string
 
   onClick?: () => void
-  to?: string
 
   variant?: ButtonVariant
   size?: ButtonSize
 
   fullWidth?: boolean
   disabled?: boolean
+  loading?: boolean
 }

@@ -4,19 +4,41 @@ import { CreateGoalForm } from 'widgets/goal'
 
 import { CreateGoalButton } from 'features/goal'
 
-import { PageLayout, Typography } from 'shared/ui'
+import {
+  Footer,
+  Header,
+  HeaderBack,
+  HeaderContent,
+  HeaderLeft,
+  PageLayout,
+  PageLayoutContent,
+  PageLayoutFooter,
+  PageLayoutHeader,
+  Typography,
+} from 'shared/ui'
 
 export const CreateGoalPage = memo(function CreateGoalPage() {
   return (
-    <PageLayout
-      header={
-        <Typography level="h2" color="primary">
-          Создание цели
-        </Typography>
-      }
-      footer={<CreateGoalButton />}
-    >
-      <CreateGoalForm />
+    <PageLayout>
+      <PageLayoutHeader>
+        <Header>
+          <HeaderLeft>
+            <HeaderBack />
+          </HeaderLeft>
+
+          <HeaderContent>Создание цели</HeaderContent>
+        </Header>
+      </PageLayoutHeader>
+
+      <PageLayoutContent>
+        <CreateGoalForm />
+      </PageLayoutContent>
+
+      <PageLayoutFooter>
+        <Footer>
+          <CreateGoalButton />
+        </Footer>
+      </PageLayoutFooter>
     </PageLayout>
   )
 })

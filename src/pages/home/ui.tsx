@@ -1,37 +1,44 @@
-import { Link } from 'atomic-router-react'
 import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
-import { $book, $booksLoading } from 'entities/book'
-import { GoalList } from 'entities/goal'
+import { BookCard, BookCardSkeleton } from 'widgets/book'
 
-import { routes } from 'shared/routing'
-import { Button, PageLayout, Typography } from 'shared/ui'
+import { $$book } from 'entities/book'
+import { GoalList, GoalListSkeleton } from 'entities/goal'
+
+import {
+  Header,
+  HeaderAvatar,
+  HeaderContent,
+  HeaderLeft,
+  PageLayout,
+  PageLayoutContent,
+  PageLayoutHeader,
+  Stack,
+} from 'shared/ui'
 
 export const HomePage = memo(function GoalsListPage() {
   // Effector
-  const [book, bookLoading] = useUnit([$book, $booksLoading])
-
-  if (!book || bookLoading) {
-    return 'loading..'
-  }
+  const [book, bookLoading] = useUnit([$$book.$item, $$book.loadAll.$pending])
 
   return (
-    <PageLayout
-      header={
-        <Typography level="h2" color="primary">
-          {book?.name}
-        </Typography>
-      }
-      footer={
-        <Link style={{ width: '100%' }} to={routes.goal.create} params={{ bookId: book.id }}>
-          <Button fullWidth size="large">
-            Создать цель
-          </Button>
-        </Link>
-      }
-    >
-      <GoalList goals={book.goals || []} />
+    <PageLayout>
+      <PageLayoutHeader>
+        <Header>
+          <HeaderLeft>
+            <HeaderAvatar />
+          </HeaderLeft>
+          <HeaderContent>Главная</HeaderContent>
+        </Header>
+      </PageLayoutHeader>
+
+      <PageLayoutContent>
+        <Stack spacing={2}>
+          {bookLoading && book ? <BookCardSkeleton /> : book && <BookCard book={book} />}
+
+          {bookLoading ? <GoalListSkeleton /> : <GoalList goals={book?.goals || []} />}
+        </Stack>
+      </PageLayoutContent>
     </PageLayout>
   )
 })

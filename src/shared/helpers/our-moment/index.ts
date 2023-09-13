@@ -12,9 +12,9 @@ const datesDifference = (endDate: OurDate, startDate: OurDate, by: DifferenceBy 
   return date.diff(endDate, by)
 }
 
-const rangeOfDates = (start: OurDate, end: OurDate) => {
-  const startDate = moment(start).format('DD MMM')
-  const endDate = moment(end).format('DD MMM YYYY')
+const rangeOfDates = (start: OurDate, end?: OurDate) => {
+  const startDate = moment(start).format('DD.MM.YYYY')
+  const endDate = moment(end).format('DD.MM.YYYY')
 
   return `${startDate} — ${endDate}`
 }

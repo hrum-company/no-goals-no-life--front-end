@@ -8,7 +8,20 @@ import { EditGoalButton } from 'features/goal'
 import { $goal, $goalLoading } from 'entities/goal'
 
 import { controls } from 'shared/routing'
-import { Button, PageLayout, Stack, Typography } from 'shared/ui'
+import {
+  Button,
+  Footer,
+  Header,
+  HeaderBack,
+  HeaderContent,
+  HeaderLeft,
+  PageLayout,
+  PageLayoutContent,
+  PageLayoutFooter,
+  PageLayoutHeader,
+  Stack,
+  Typography,
+} from 'shared/ui'
 
 export const EditGoalPage = memo(function EditGoalPage() {
   const [goal, goalLoading] = useUnit([$goal, $goalLoading])
@@ -22,29 +35,26 @@ export const EditGoalPage = memo(function EditGoalPage() {
   }
 
   return (
-    <PageLayout
-      header={
-        <Typography level="h2" color="primary">
-          Редактирование цели
-        </Typography>
-      }
-      footer={
-        <Stack fullWidth direction="column" spacing={1}>
-          <EditGoalButton />
+    <PageLayout>
+      <PageLayoutHeader>
+        <Header>
+          <HeaderLeft>
+            <HeaderBack />
+          </HeaderLeft>
 
-          <Button
-            fullWidth
-            size="large"
-            variant="outlined"
-            color="danger"
-            onClick={handleBackClicked}
-          >
-            Назад
-          </Button>
-        </Stack>
-      }
-    >
-      <EditGoalForm />
+          <HeaderContent>Редактирование</HeaderContent>
+        </Header>
+      </PageLayoutHeader>
+
+      <PageLayoutContent>
+        <EditGoalForm />
+      </PageLayoutContent>
+
+      <PageLayoutFooter>
+        <Footer>
+          <EditGoalButton />
+        </Footer>
+      </PageLayoutFooter>
     </PageLayout>
   )
 })

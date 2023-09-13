@@ -1,7 +1,14 @@
 import { RouteInstance } from 'atomic-router'
-import { Event, Store, attach, createEffect, createEvent, createStore, sample } from 'effector'
+import { Event, Store, attach, combine, createEffect, createStore, sample } from 'effector'
+import { reset } from 'patronum'
 
 import { Goal, api } from 'shared/api'
+import {
+  EditableField,
+  EditableFieldFactory,
+  ModelEvent,
+  ModelEventFactory,
+} from 'shared/helpers/effector'
 import { routes } from 'shared/routing'
 
 //#region //* API
@@ -15,8 +22,11 @@ const requestEditGoalFx = attach({ effect: api.goal.requestEditGoalFx })
 //#region //* Store
 
 export const $goal = createStore<Goal | null>(null)
+
 const toCreateName = EditableFieldFactory<string>('')
 const toCreateDescription = EditableFieldFactory<string>('')
+const $createCanSubmit = combine(toCreateName.$value, (name) => !!name)
+
 const toEditDescription = EditableFieldFactory<string>('')
 
 export const $goalLoading = requestFindOneGoalFx.pending
@@ -29,6 +39,8 @@ const loadOne = ModelEventFactory<{ bookId: number; id: number }>()
 const loadAll = ModelEventFactory()
 const created = ModelEventFactory<number>()
 const edited = ModelEventFactory()
+
+const toCreateReseted = reset({ target: [toCreateName.$value, toCreateDescription.$value] })
 
 //#endregion
 
@@ -78,6 +90,8 @@ sample({
 })
 
 //? Edit
+$goal.watch((goal) => toEditDescription.changed(goal?.description || ''))
+
 sample({
   clock: [edited.inited],
   source: { goal: $goal, description: toEditDescription.$value },
@@ -103,24 +117,6 @@ sample({
 //#region //* Model
 
 /**
- * Че-то там кто-то там.
- *
- * @param {Store<T>} $value - стор значения
- * @param {Event<T>} changed - события для изменения стора значения
- */
-interface EditableField<T> {
-  [key: string]: Store<T> | Event<T>
-  $value: Store<T>
-  changed: Event<T>
-}
-
-interface ModelEvent<T> {
-  inited: Event<T>
-  $pending: Store<boolean>
-  done: Event<void>
-}
-
-/**
  * Глобальная модель Goal
  *
  * @param {Store<Goal | null>} $item - текущая goal, с которой будут происходить манипуляции
@@ -138,6 +134,8 @@ export interface GoalModel {
     name: EditableField<string>
     description: EditableField<string>
   }
+  $createCanSubmit: Store<boolean>
+  toCreateReseted: Event<void>
 
   toEdit: {
     description: EditableField<string>
@@ -156,6 +154,8 @@ export const $$goal: GoalModel = {
     name: toCreateName,
     description: toCreateDescription,
   },
+  $createCanSubmit,
+  toCreateReseted,
 
   toEdit: {
     description: toEditDescription,
@@ -169,27 +169,7 @@ export const $$goal: GoalModel = {
 
 //#endregion
 
-//#region Helpers
-
-function EditableFieldFactory<T>(initialValue: T): EditableField<T> {
-  const $value = createStore<T>(initialValue)
-  const changed = createEvent<T>()
-
-  $value.on(changed, (_, value) => value)
-
-  return {
-    $value,
-    changed,
-  }
-}
-
-function ModelEventFactory<T = void>(): ModelEvent<T> {
-  return {
-    inited: createEvent<T>(),
-    $pending: createStore<boolean>(false),
-    done: createEvent(),
-  }
-}
+//#region //* Helpers
 
 export function requestGoalSampleFactory(route: RouteInstance<{ bookId: number; id: number }>) {
   sample({

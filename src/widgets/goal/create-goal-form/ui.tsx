@@ -13,9 +13,21 @@ export const CreateGoalForm = memo(function CreateGoalForm() {
   const description = useUnit($$goal.toCreate.description)
 
   return (
-    <Stack spacing={2}>
-      <GoalNameInput value={name.$value} onChange={name.changed} />
-      <GoalDescriptionTextarea value={description.$value} onChange={description.changed} />
+    <Stack
+      fullWidth
+      spacing={2}
+    >
+      <GoalNameInput
+        value={name.$value}
+        onChange={name.changed}
+        withHelperText
+      />
+
+      <GoalDescriptionTextarea
+        value={description.$value}
+        onChange={description.changed}
+        withHelperText
+      />
     </Stack>
   )
 })

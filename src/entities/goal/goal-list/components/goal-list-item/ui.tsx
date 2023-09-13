@@ -1,19 +1,50 @@
 import { memo } from 'react'
 
-import { Stack, Typography } from 'shared/ui'
+import { Card, Chip, Stack, Typography } from 'shared/ui'
 
-import styles from './styles.module.scss'
+import classes from './styles.module.scss'
 import { GoalListItemProps } from './types'
 
 export const GoalListItem = memo(function GoalListItem({ goal, index }: GoalListItemProps) {
   return (
-    <Stack className={styles.wrapper} direction="row" alignItems="center" spacing={1}>
-      <Typography color="primary" level="title-lg">
-        №{index}
-      </Typography>
-      <Typography color="neutral" level="title-md" noWrap>
-        {goal.name}
-      </Typography>
-    </Stack>
+    <Card
+      variant="secondary"
+      color="neutral"
+      className={classes.root}
+    >
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        spacing={1}
+      >
+        <div className={classes.content}>
+          <Typography
+            color="primary"
+            level="body-md"
+          >
+            №{index}
+          </Typography>
+          <Typography
+            color="neutral"
+            level="title-lg"
+            noWrap
+          >
+            {goal.name}
+          </Typography>
+        </div>
+
+        {goal.completed && (
+          <Chip
+            className={classes.right}
+            size="medium"
+            variant="outlined"
+            color="success"
+          >
+            Выполнено
+          </Chip>
+        )}
+      </Stack>
+    </Card>
   )
 })

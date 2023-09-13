@@ -1,12 +1,26 @@
 import { useUnit } from 'effector-react/compat'
 import { memo, useCallback } from 'react'
 
-import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
+import { GoalDescriptionTextarea } from 'features/goal'
 
-import { $$goal } from 'entities/goal'
+import { $$goal, GoalInfoChips } from 'entities/goal'
 
-import { controls, routes } from 'shared/routing'
-import { Button, PageLayout, Stack, Typography } from 'shared/ui'
+import { routes } from 'shared/routing'
+import {
+  Button,
+  Card,
+  Footer,
+  Header,
+  HeaderBack,
+  HeaderContent,
+  HeaderLeft,
+  PageLayout,
+  PageLayoutContent,
+  PageLayoutFooter,
+  PageLayoutHeader,
+  Stack,
+  Typography,
+} from 'shared/ui'
 
 export const GoalPage = memo(function GoalPage() {
   const [goal, goalLoading] = useUnit([$$goal.$item, $$goal.loadOne.$pending])
@@ -18,49 +32,75 @@ export const GoalPage = memo(function GoalPage() {
     routes.goal.edit.open({ ...goal })
   }, [goal])
 
-  const handleBackClicked = useCallback(() => {
-    controls.back()
-  }, [])
-
   if (!goal || goalLoading) {
     return 'loading..'
   }
 
   return (
-    <PageLayout
-      header={
-        <Typography level="h2" color="primary">
-          Цель какая-то
-        </Typography>
-      }
-      footer={
-        <Stack fullWidth direction="column" spacing={1}>
+    <PageLayout>
+      <PageLayoutHeader>
+        <Header>
+          <HeaderLeft>
+            <HeaderBack />
+          </HeaderLeft>
+
+          <HeaderContent>Цель какая-то</HeaderContent>
+        </Header>
+      </PageLayoutHeader>
+
+      <PageLayoutContent>
+        <Stack spacing={2}>
+          <Stack
+            spacing={0.5}
+            fullWidth
+          >
+            <Typography
+              level="title-lg"
+              color="primary"
+            >
+              Название
+            </Typography>
+            <Card
+              fullWidth
+              variant="secondary"
+            >
+              <Typography>{goal.name}</Typography>
+            </Card>
+          </Stack>
+
+          <Stack
+            spacing={0.5}
+            fullWidth
+          >
+            <Typography
+              level="title-lg"
+              color="primary"
+            >
+              Описание
+            </Typography>
+            <Card
+              fullWidth
+              variant="secondary"
+            >
+              <Typography>{goal.description || 'Отсутствует'}</Typography>
+            </Card>
+          </Stack>
+
+          <GoalInfoChips goal={goal} />
+        </Stack>
+      </PageLayoutContent>
+
+      <PageLayoutFooter>
+        <Footer>
           <Button
             fullWidth
             size="large"
-            variant="outlined"
-            color="neutral"
             onClick={handleEditOpened}
           >
             Редактировать
           </Button>
-          <Button fullWidth size="large" onClick={handleBackClicked}>
-            Назад
-          </Button>
-        </Stack>
-      }
-    >
-      <Stack spacing={2}>
-        <Typography level="title-lg" color="primary">
-          Название цели
-        </Typography>
-        <GoalNameInput value={goal.name} readOnly />
-
-        <Typography level="title-lg" color="primary">
-          Описание цели
-        </Typography>
-        <GoalDescriptionTextarea value={goal.description} readOnly />
-      </Stack>
+        </Footer>
+      </PageLayoutFooter>
     </PageLayout>
   )
 })

@@ -1,8 +1,7 @@
 import { Button } from '@mui/joy'
-import { Link } from 'atomic-router-react'
 import { memo } from 'react'
 
-import styles from './styles.module.scss'
+import classes from './styles.module.scss'
 import { ButtonProps, ButtonSize, ButtonVariant } from './types'
 
 type JoyButtonVariant = 'outlined' | 'plain' | 'soft' | 'solid'
@@ -26,7 +25,6 @@ export const JoyButton = memo(function JoyButton({
   endDecorator,
 
   onClick = () => null,
-  to,
 
   variant = 'primary',
   size = 'medium',
@@ -34,12 +32,14 @@ export const JoyButton = memo(function JoyButton({
 
   fullWidth = false,
   disabled = false,
+  loading = false,
 }: ButtonProps) {
-  const button = (
+  return (
     <Button
       variant={variantMap[variant]}
       size={sizeMap[size]}
       disabled={disabled}
+      loading={loading}
       fullWidth={fullWidth}
       color={color}
       startDecorator={startDecorator}
@@ -49,14 +49,4 @@ export const JoyButton = memo(function JoyButton({
       {children}
     </Button>
   )
-
-  if (to) {
-    return (
-      <Link className={fullWidth ? styles.fullWidthLink : ''} to={to}>
-        {button}
-      </Link>
-    )
-  }
-
-  return button
 })

@@ -1,6 +1,6 @@
 import { sample } from 'effector'
 
-import { booksRequested } from 'entities/book'
+import { $$book } from 'entities/book'
 
 import { routes } from 'shared/routing'
 import { chainAuthorize } from 'shared/session'
@@ -11,5 +11,5 @@ export const authorizedRoute = chainAuthorize(currentRoute)
 sample({
   clock: [authorizedRoute.$isOpened],
   fn: () => null,
-  target: booksRequested,
+  target: $$book.loadAll.inited,
 })
