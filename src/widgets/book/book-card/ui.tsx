@@ -1,7 +1,10 @@
 import { EmojiEventsOutlined } from '@mui/icons-material'
 import { Button, Card, CardActions, CircularProgress, Stack, Typography } from '@mui/joy'
 import { Link } from 'atomic-router-react'
+import { useUnit } from 'effector-react/effector-react.umd'
 import { memo } from 'react'
+
+import { $$editBookModal } from 'entities/book'
 
 import { routes } from 'shared/routing'
 
@@ -13,6 +16,10 @@ export const BookCard = memo(function BookCard({
   title = 'Ваша книга целей',
   buttonSide,
 }: BookCardProps) {
+  // Effector
+  const [editBookModalOpened] = useUnit([$$editBookModal.opened])
+
+  // Variables
   const completedGoalsCount = book.completedGoalsCount
   const goalsCount = book.goals?.length || 0
   const progressValue = Math.round(goalsCount !== 0 ? (completedGoalsCount / goalsCount) * 100 : 0)
@@ -52,6 +59,7 @@ export const BookCard = memo(function BookCard({
               variant="soft"
               size="sm"
               fullWidth
+              onClick={editBookModalOpened}
             >
               Настроить
             </Button>
