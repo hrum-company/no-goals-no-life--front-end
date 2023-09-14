@@ -3,12 +3,13 @@ import { RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
 interface UseElementConfig {
   initialHeightValue?: number
   observeChange?: boolean
+  setter?: (value: number) => void
 }
 
 export const useElementHeight = <RefType extends HTMLElement>(
   config: UseElementConfig = { initialHeightValue: 0, observeChange: false }
 ): [RefObject<RefType>, number] => {
-  const { initialHeightValue = 0, observeChange = false } = config
+  const { initialHeightValue = 0, observeChange = false, setter = () => null } = config
 
   // Ref
   const elementRef = useRef<RefType>(null)
@@ -22,6 +23,7 @@ export const useElementHeight = <RefType extends HTMLElement>(
       return undefined
     }
 
+    setter(elementRef.current.clientHeight)
     setHeight(elementRef.current.clientHeight)
   }, [])
 
@@ -37,6 +39,7 @@ export const useElementHeight = <RefType extends HTMLElement>(
     }
 
     if (height !== elementRef.current.clientHeight) {
+      setter(elementRef.current.clientHeight)
       setHeight(elementRef.current.clientHeight)
     }
   })

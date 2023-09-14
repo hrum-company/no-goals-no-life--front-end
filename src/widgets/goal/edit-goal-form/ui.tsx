@@ -2,31 +2,24 @@ import { Stack } from '@mui/joy'
 import { useUnit } from 'effector-react'
 import { memo } from 'react'
 
-import {
-  $editGoalDescription,
-  $editGoalName,
-  GoalDescriptionTextarea,
-  GoalNameInput,
-  editGoalDescriptionChanged,
-} from 'features/goal'
+import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
+
+import { $$goal } from 'entities/goal'
 
 export const EditGoalForm = memo(function EditGoalForm() {
   // Effector
-  const [name, description, descriptionChanged] = useUnit([
-    $editGoalName,
-    $editGoalDescription,
-    editGoalDescriptionChanged,
-  ])
+  const [goal] = useUnit([$$goal.$item])
+  const description = useUnit($$goal.toEdit.description)
 
   return (
     <Stack spacing={2}>
       <GoalNameInput
-        value={name}
+        value={goal?.name || ''}
         disabled
       />
       <GoalDescriptionTextarea
-        value={description}
-        onChange={descriptionChanged}
+        value={description.$value}
+        onChange={description.changed}
       />
     </Stack>
   )

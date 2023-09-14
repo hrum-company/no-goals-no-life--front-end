@@ -2,16 +2,15 @@ import { Button } from '@mui/joy'
 import { useUnit } from 'effector-react/effector-react.mjs'
 import { memo } from 'react'
 
-import { $editGoalIsEdited, editGoalSubmited } from './model'
+import { editGoalSubmited } from './model'
 
 export const EditGoalButton = memo(function EditGoalButton() {
   // Effector
-  const [submited, isEdited] = useUnit([editGoalSubmited, $editGoalIsEdited])
+  const [submited] = useUnit([editGoalSubmited])
 
   return (
     <Button
       onClick={submited}
-      disabled={!isEdited}
       fullWidth
       size="lg"
     >

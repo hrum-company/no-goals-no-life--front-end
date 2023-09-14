@@ -1,5 +1,14 @@
 import { RouteInstance } from 'atomic-router'
-import { Event, Store, attach, combine, createEffect, createStore, sample } from 'effector'
+import {
+  Event,
+  Store,
+  attach,
+  combine,
+  createEffect,
+  createEvent,
+  createStore,
+  sample,
+} from 'effector'
 import { reset } from 'patronum'
 
 import { Goal, api } from 'shared/api'
@@ -43,6 +52,7 @@ const edited = ModelEventFactory()
 const completed = ModelEventFactory<{ bookId: number; id: number }>()
 
 const toCreateReseted = reset({ target: [toCreateName.$value, toCreateDescription.$value] })
+const toEditReseted = createEvent()
 
 //#endregion
 
@@ -93,6 +103,13 @@ sample({
 
 //? Edit
 $goal.watch((goal) => toEditDescription.changed(goal?.description || ''))
+
+sample({
+  clock: toEditReseted,
+  source: $goal,
+  fn: (goal) => goal?.description || '',
+  target: toEditDescription.changed,
+})
 
 sample({
   clock: [edited.inited],
@@ -156,6 +173,7 @@ export interface GoalModel {
   toEdit: {
     description: EditableField<string>
   }
+  toEditReseted: Event<void>
 
   loadOne: ModelEvent<{ bookId: number; id: number }>
   loadAll?: ModelEvent<void>
@@ -177,6 +195,7 @@ export const $$goal: GoalModel = {
   toEdit: {
     description: toEditDescription,
   },
+  toEditReseted,
 
   loadOne: loadOne,
   loadAll: loadAll,
