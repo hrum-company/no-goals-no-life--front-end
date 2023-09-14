@@ -1,12 +1,12 @@
 import { createEffect, createEvent, sample } from 'effector'
 
-import { $$goal } from 'entities/goal'
+import { $$book, $$editBookModal } from 'entities/book'
 
 import { $$alert } from 'shared/alerts'
 
 //#region Events -----
 
-export const editGoalSubmited = createEvent()
+export const editBookModalSubmited = createEvent()
 
 //#endregion -----
 
@@ -26,12 +26,17 @@ const pushSuccessAlertFx = createEffect(() => {
 //#region Business Logic -----
 
 sample({
-  clock: editGoalSubmited,
-  target: $$goal.edit.inited,
+  clock: editBookModalSubmited,
+  target: $$book.edit.inited,
 })
 
 sample({
-  clock: $$goal.edit.done,
+  clock: $$book.edit.done,
+  target: $$editBookModal.closed,
+})
+
+sample({
+  clock: $$book.edit.done,
   target: pushSuccessAlertFx,
 })
 

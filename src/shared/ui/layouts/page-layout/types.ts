@@ -14,6 +14,10 @@ export interface PageLayoutFooterProps {
   children: React.ReactNode
 }
 
+export interface PageLayoutModalsProps {
+  children: React.ReactNode
+}
+
 export interface PageLayoutProps {
   children: React.ReactNode
   header?: React.ReactNode
