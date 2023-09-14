@@ -56,17 +56,19 @@ export const GoalPage = memo(function GoalPage() {
               <GoalPageCard
                 goal={goal}
                 actionSlot={
-                  <>
-                    <Button
-                      variant="soft"
-                      size="sm"
-                      fullWidth
-                      onClick={handleEditOpened}
-                    >
-                      Редактировать
-                    </Button>
-                    {!goal.completed && <CompleteGoalButton />}
-                  </>
+                  !goal.completed && (
+                    <>
+                      <Button
+                        variant="soft"
+                        size="sm"
+                        fullWidth
+                        onClick={handleEditOpened}
+                      >
+                        Редактировать
+                      </Button>
+                      <CompleteGoalButton />
+                    </>
+                  )
                 }
               />
             )
