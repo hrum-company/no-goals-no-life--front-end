@@ -2,6 +2,8 @@ import { Button, Stack } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo, useCallback } from 'react'
 
+import { CompleteGoalButton } from 'features/goal'
+
 import {
   $$goal,
   GoalDescription,
@@ -54,14 +56,19 @@ export const GoalPage = memo(function GoalPage() {
               <GoalPageCard
                 goal={goal}
                 actionSlot={
-                  <Button
-                    variant="soft"
-                    size="sm"
-                    fullWidth
-                    onClick={handleEditOpened}
-                  >
-                    Редактировать
-                  </Button>
+                  !goal.completed && (
+                    <>
+                      <Button
+                        variant="soft"
+                        size="sm"
+                        fullWidth
+                        onClick={handleEditOpened}
+                      >
+                        Редактировать
+                      </Button>
+                      <CompleteGoalButton />
+                    </>
+                  )
                 }
               />
             )

@@ -63,6 +63,7 @@ type FindCompleteGoalResponse = Goal
 const requestCompleteGoalFx = createEffect<FindCompleteGoalRequestFx, FindCompleteGoalResponse>(
   async ({ id, bookId }) => {
     return request<FindCompleteGoalResponse>({
+      method: 'put',
       path: `/book/${bookId}/goal/${id}/complete`,
     })
   }

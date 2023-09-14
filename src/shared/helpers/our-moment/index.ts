@@ -7,7 +7,7 @@ import { DifferenceBy, OurDate } from './types'
 moment.updateLocale('ru', dateUpdateLocaleRu)
 moment.locale('ru')
 
-const datesDifference = (endDate: OurDate, startDate: OurDate, by: DifferenceBy = 'days') => {
+const datesDifference = (endDate?: OurDate, startDate?: OurDate, by: DifferenceBy = 'days') => {
   const date = moment(startDate)
   return date.diff(endDate, by)
 }

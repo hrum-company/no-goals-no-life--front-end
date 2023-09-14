@@ -1,4 +1,4 @@
-import { Avatar, Stack, Typography } from '@mui/joy'
+import { Avatar, Chip, Stack, Typography } from '@mui/joy'
 import { memo } from 'react'
 
 import { ourMoment } from 'shared/helpers'
@@ -19,8 +19,7 @@ export const GoalPageCard = memo(function GoalPageCard({ goal, actionSlot }: Goa
       >
         <Typography
           level="inherit"
-          fontFamily=""
-          color={'primary'}
+          color={goal.completed ? 'success' : 'primary'}
         >
           #{goal.order}
         </Typography>
@@ -30,19 +29,42 @@ export const GoalPageCard = memo(function GoalPageCard({ goal, actionSlot }: Goa
           className={classes.avatar}
           noPadding
         >
-          <Avatar
-            size="xxl"
-            color="primary"
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
           >
-            NGNL
-          </Avatar>
+            <Avatar
+              size="xxl"
+              color="primary"
+            >
+              NGNL
+            </Avatar>
+            {goal.completed && (
+              <Chip
+                variant="outlined"
+                color="success"
+                sx={{ height: 'max-content' }}
+              >
+                Цель выполнена!
+              </Chip>
+            )}
+          </Stack>
         </Div>
 
         <Div noPadding>
-          <Typography level="h4">{goal.name}</Typography>
-          <Typography level="body-sm">
-            Дата создания: {ourMoment(goal.createdAt).format('DD.MM.YYYY')}
-          </Typography>
+          <Stack spacing={1}>
+            <Typography level="h4">{goal.name}</Typography>
+            <Typography level="body-sm">
+              Дата создания: {ourMoment(goal.createdAt).format('DD.MM.YYYY')}
+            </Typography>
+
+            {goal.completed && (
+              <Typography level="body-sm">
+                Дата завершения: {ourMoment(goal.completedAt).format('DD.MM.YYYY')}
+              </Typography>
+            )}
+          </Stack>
         </Div>
 
         {actionSlot}

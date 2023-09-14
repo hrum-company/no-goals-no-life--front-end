@@ -7,7 +7,8 @@ import { GoalListItemProps } from './types'
 export const GoalListItem = memo(function GoalListItem({ goal }: GoalListItemProps) {
   return (
     <Card
-      variant="soft"
+      variant={goal.completed ? 'outlined' : 'soft'}
+      color={goal.completed ? 'success' : 'neutral'}
       className={classes.root}
       sx={{ borderRadius: 16 }}
     >
