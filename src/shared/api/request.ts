@@ -16,7 +16,7 @@ export const request = async <ResponseData, RequestData = unknown>({
 }: Request<RequestData>): Promise<ResponseData> => {
   return axios<ResponseData>({
     method,
-    url: `https://localhost:3000/api${path}/${window.location.search || defualtSearch}`,
+    url: `https://ngnl.dev.local:3000/api${path}/${window.location.search || defualtSearch}`,
     data,
   }).then((response) => {
     return response.data

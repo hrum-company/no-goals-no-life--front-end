@@ -1,8 +1,10 @@
-import { Avatar, Button, Stack, Typography } from '@mui/joy'
+import { Button } from '@mui/joy'
+import { useUnit } from 'effector-react/effector-react.umd'
 import { memo } from 'react'
 
 import { Navigation } from 'widgets/navigation'
 
+import { $$alert } from 'shared/alerts'
 import {
   Div,
   Header,
@@ -12,69 +14,39 @@ import {
   PageLayoutFooter,
   PageLayoutHeader,
 } from 'shared/ui'
-import { Cloud } from 'shared/ui/cloud'
-
-import classes from './styles.module.scss'
 
 export const DevelopPage = memo(function DevelopPage() {
+  // Effector
+  const [pushed] = useUnit([$$alert.pushed])
+
+  // Handlers
+  const handleAlertPushed = () => {
+    pushed({
+      data: {
+        type: 'success',
+        message: 'Hello World',
+      },
+    })
+  }
+
   return (
     <PageLayout>
-      <PageLayoutHeader noWrapperHeight>
-        <Header
-          className={classes.header}
-          noBorder
-        >
+      <PageLayoutHeader>
+        <Header>
           <HeaderContent>Страница для разработки</HeaderContent>
         </Header>
       </PageLayoutHeader>
 
-      <PageLayoutContent className={classes.content}>
-        <Stack
-          className={classes.topBg}
-          direction="row"
-          alignItems="flex-end"
-          justifyContent="flex-end"
-        >
-          <Typography
-            level="inherit"
-            fontFamily=""
-            color={'primary'}
+      <PageLayoutContent>
+        <Div>
+          <Button
+            color="success"
+            fullWidth
+            onClick={handleAlertPushed}
           >
-            #26
-          </Typography>
-        </Stack>
-        <Stack spacing={1.5}>
-          <Cloud>
-            <Div
-              className={classes.avatar}
-              noPadding
-            >
-              <Avatar
-                size="xxl"
-                color="primary"
-              >
-                NGNL
-              </Avatar>
-            </Div>
-
-            <Div noPadding>
-              <Typography level="h4">Моя супер крутая жизненная цель</Typography>
-              <Typography level="body-sm">Дата создания: XX.XX.XXXX</Typography>
-            </Div>
-
-            <Button
-              variant="soft"
-              size="sm"
-              fullWidth
-            >
-              Редактировать
-            </Button>
-          </Cloud>
-
-          <Cloud>
-            <Typography level="title-lg">Описание</Typography>
-          </Cloud>
-        </Stack>
+            Показать алерт
+          </Button>
+        </Div>
       </PageLayoutContent>
 
       <PageLayoutFooter>
