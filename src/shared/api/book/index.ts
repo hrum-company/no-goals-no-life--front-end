@@ -15,7 +15,10 @@ const requestBookAllFx = createEffect<null, Book[]>(async () => {
 
 //#region Edit
 
-type EditBookRequestFx = Omit<Book, 'userId' | 'createAt' | 'goals'>
+export type EditBookRequestFx = Omit<
+  Book,
+  'userId' | 'createAt' | 'goals' | 'createdAt' | 'completedGoalsCount'
+>
 type EditBookRequest = Omit<EditBookRequestFx, 'id'>
 type EditBookResponse = Book
 
