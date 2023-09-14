@@ -1,10 +1,14 @@
+import classNames from 'classnames'
 import { memo } from 'react'
 
-import styles from '../styles.module.scss'
+import classes from '../styles.module.scss'
 import { PageLayoutContentProps } from '../types'
 
 export const PageLayoutContent = memo(function PageLayoutContent({
   children,
+  className = '',
 }: PageLayoutContentProps) {
-  return <div className={styles.content}>{children}</div>
+  const PageLayoutContentClassName = classNames(className, classes.content)
+
+  return <div className={PageLayoutContentClassName}>{children}</div>
 })

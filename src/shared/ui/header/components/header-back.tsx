@@ -1,4 +1,5 @@
-import { Button } from '@mui/joy'
+import { ArrowBack } from '@mui/icons-material'
+import { IconButton } from '@mui/joy'
 import { memo, useCallback } from 'react'
 
 import { controls } from 'shared/routing'
@@ -13,12 +14,12 @@ export const HeaderBack = memo(function HeaderBack() {
 
   return (
     <div className={classes.back}>
-      <Button
+      <IconButton
+        color="primary"
         onClick={handleClick}
-        size="sm"
       >
-        Назад
-      </Button>
+        <ArrowBack />
+      </IconButton>
     </div>
   )
 })

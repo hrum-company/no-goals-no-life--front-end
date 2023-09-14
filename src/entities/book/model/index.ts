@@ -1,4 +1,4 @@
-import { Store, attach, combine, createEvent, createStore, sample } from 'effector'
+import { Store, attach, combine, createStore, sample } from 'effector'
 import { Event } from 'effector/compat'
 
 import { Book, api } from 'shared/api'

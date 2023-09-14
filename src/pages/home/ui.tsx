@@ -1,19 +1,22 @@
-import { Stack } from '@mui/joy'
+import { Card, CardCover, Stack, Typography } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
 import { BookCard, BookCardSkeleton } from 'widgets/book'
+import { Navigation } from 'widgets/navigation'
 
 import { $$book } from 'entities/book'
 import { GoalList, GoalListSkeleton } from 'entities/goal'
 
 import {
+  Div,
   Header,
   HeaderAvatar,
   HeaderContent,
   HeaderLeft,
   PageLayout,
   PageLayoutContent,
+  PageLayoutFooter,
   PageLayoutHeader,
 } from 'shared/ui'
 
@@ -34,11 +37,15 @@ export const HomePage = memo(function GoalsListPage() {
 
       <PageLayoutContent>
         <Stack spacing={2}>
-          {bookLoading && book ? <BookCardSkeleton /> : book && <BookCard book={book} />}
+          <Div>{bookLoading && book ? <BookCardSkeleton /> : book && <BookCard book={book} />}</Div>
 
-          {bookLoading ? <GoalListSkeleton /> : <GoalList goals={book?.goals || []} />}
+          <Div>{bookLoading ? <GoalListSkeleton /> : <GoalList goals={book?.goals || []} />}</Div>
         </Stack>
       </PageLayoutContent>
+
+      <PageLayoutFooter>
+        <Navigation />
+      </PageLayoutFooter>
     </PageLayout>
   )
 })

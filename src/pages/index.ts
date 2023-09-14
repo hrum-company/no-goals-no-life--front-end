@@ -1,6 +1,7 @@
 import { createRoutesView } from 'atomic-router-react'
 
 import { CreateGoalRoute } from './create-goal'
+import { DevelopRoute } from './develop'
 import { EditGoalRoute } from './edit-goal'
 import { FriendsListsRoute } from './friends-lists'
 import { ShowGoalRoute } from './goal'
@@ -15,5 +16,6 @@ export const Pages = createRoutesView({
     EditGoalRoute,
     ShowGoalRoute,
     FriendsListsRoute,
+    DevelopRoute,
   ],
 })

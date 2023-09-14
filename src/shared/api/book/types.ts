@@ -4,7 +4,7 @@ import { Goal } from '../goal'
 type BookItem = Goal
 
 /**
- * Returns the average of two numbers.
+ * Book
  *
  * @param id - Уникальный идентификатор
  * @param userId - Уникальный идентификатор владельца
@@ -12,6 +12,7 @@ type BookItem = Goal
  * @param hidden - Скрыто ли содержимое списка от других пользователей
  * @param createdAt - дата создания списка
  * @param goals - Массив целей списка
+ * @param completedGoalsCount - Количество выполненных целей
  */
 export interface Book {
   id: ID
@@ -24,4 +25,5 @@ export interface Book {
   createdAt: DateTime
 
   goals?: BookItem[]
+  completedGoalsCount: number
 }

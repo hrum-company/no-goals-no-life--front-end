@@ -10,8 +10,8 @@ export const GoalListSkeleton = memo(function GoalListSkeleton() {
       className={classes.root}
       spacing={1}
     >
-      <GoalListItemSkeleton />
-      <GoalListItemSkeleton />
+      <GoalListItemSkeleton order={1} />
+      <GoalListItemSkeleton order={2} />
     </Stack>
   )
 })

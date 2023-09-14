@@ -1,5 +1,7 @@
 export interface HeaderProps {
   children: React.ReactNode
+  className?: string
+  noBorder?: boolean
 }
 
 export interface HeaderLeftProps {

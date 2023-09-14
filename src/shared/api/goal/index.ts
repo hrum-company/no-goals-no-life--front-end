@@ -21,7 +21,7 @@ const requestFindOneGoalFx = createEffect<FindOneGoalRequestFx, FindOneGoalRespo
 
 //#region Create
 
-type CreateGoalRequestFx = Omit<Goal, 'id' | 'completed' | 'createdAt' | 'completedAt'>
+type CreateGoalRequestFx = Omit<Goal, 'id' | 'order' | 'completed' | 'createdAt' | 'completedAt'>
 type CreateGoalRequest = Omit<CreateGoalRequestFx, 'bookId'>
 type CreateGoalResponse = Goal
 
@@ -39,7 +39,7 @@ const requestCreateGoalFx = createEffect<CreateGoalRequestFx, CreateGoalResponse
 
 //#region Edit
 
-type EditGoalRequestFx = Omit<Goal, 'name' | 'completed' | 'createdAt' | 'completedAt'>
+type EditGoalRequestFx = Omit<Goal, 'name' | 'order' | 'completed' | 'createdAt' | 'completedAt'>
 type EditGoalRequest = Omit<EditGoalRequestFx, 'id' | 'bookId'>
 type EditGoalResponse = Goal
 
@@ -55,12 +55,29 @@ const requestEditGoalFx = createEffect<EditGoalRequestFx, EditGoalResponse>(
 
 //#endregion
 
+//#region Complete
+
+type FindCompleteGoalRequestFx = { id: ID; bookId: ID }
+type FindCompleteGoalResponse = Goal
+
+const requestCompleteGoalFx = createEffect<FindCompleteGoalRequestFx, FindCompleteGoalResponse>(
+  async ({ id, bookId }) => {
+    return request<FindCompleteGoalResponse>({
+      path: `/book/${bookId}/goal/${id}/complete`,
+    })
+  }
+)
+
+//#endregion
+
 export default {
   requestFindOneGoalFx,
 
   requestCreateGoalFx,
 
   requestEditGoalFx,
+
+  requestCompleteGoalFx,
 }
 
 export * from './types'

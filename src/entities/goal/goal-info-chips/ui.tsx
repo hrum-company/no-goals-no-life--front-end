@@ -1,41 +1,58 @@
-import { Chip, Stack, Typography } from '@mui/joy'
+import { Chip, Grid } from '@mui/joy'
 import { memo } from 'react'
 
-import { ourMoment, rangeOfDates } from 'shared/helpers'
+import { ourMoment } from 'shared/helpers'
 
-import classes from './styles.module.scss'
 import { GoalInfoChipsProps } from './types'
 
 export const GoalInfoChips = memo(function GoalInfoChips({ goal }: GoalInfoChipsProps) {
   return (
-    <Stack className={classes.root}>
-      <Typography
-        level="title-lg"
-        color="primary"
-      >
-        Информация
-      </Typography>
+    <Grid
+      container
+      spacing={1}
+      justifyContent="center"
+    >
+      <Grid>
+        <Chip
+          variant="outlined"
+          color="neutral"
+          sx={{ borderRadius: '10px' }}
+        >
+          {`Номер цели: ${goal.order}`}
+        </Chip>
+      </Grid>
 
-      <Stack
-        className={classes.chips}
-        direction="row"
-        flexWrap="wrap"
-      >
+      <Grid>
         <Chip
           variant="outlined"
           color={goal.completed ? 'success' : 'primary'}
+          sx={{ borderRadius: '10px' }}
         >
-          {goal.completed ? 'Выполнено' : 'В процессе'}
+          {`Состояние: ${goal.completed ? 'Выполнено' : 'В процессе'}`}
         </Chip>
+      </Grid>
+
+      <Grid>
         <Chip
           variant="outlined"
-          color={goal.completed ? 'success' : 'warning'}
+          color="warning"
+          sx={{ borderRadius: '10px' }}
         >
-          {goal.completed
-            ? rangeOfDates(goal.createdAt, goal.completedAt)
-            : `Дата создания ${ourMoment(goal.createdAt).format('DD.MM.YYYY')}`}
+          {`Дата создания: ${ourMoment(goal.createdAt).format('DD.MM.YYYY')}`}
         </Chip>
-      </Stack>
-    </Stack>
+      </Grid>
+
+      {!goal.completed && (
+        <Grid>
+          <Chip
+            variant="outlined"
+            color="success"
+            sx={{ borderRadius: '10px' }}
+          >
+            {`Дата завершения: ${ourMoment(goal.completedAt).format('DD.MM.YYYY')}`}
+          </Chip>
+        </Grid>
+      )}
+    </Grid>
   )
 })

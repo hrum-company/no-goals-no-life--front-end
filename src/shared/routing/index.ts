@@ -13,6 +13,8 @@ export const routes = {
     edit: createRoute<{ bookId: number; id: number }>(),
   },
   friendsBooks: createRoute(),
+
+  develop: createRoute(),
 }
 
 export const controls = createRouterControls()
@@ -42,6 +44,11 @@ export const router = createHistoryRouter({
     {
       path: '/friends-books',
       route: routes.friendsBooks,
+    },
+
+    {
+      path: '/develop',
+      route: routes.develop,
     },
   ],
   controls,

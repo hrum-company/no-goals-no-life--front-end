@@ -1,11 +1,18 @@
 .root {
-  width: 100%;
-
-  border-radius: 6px;
-}
-
-.content {
-  flex: 1 1 0;
   overflow: hidden;
 }
 
+.cover {
+  margin-top: -8px;
+  margin-right: -20px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  font-size: 120px;
+  font-weight: 700;
+
+  opacity: 0.1;
+}

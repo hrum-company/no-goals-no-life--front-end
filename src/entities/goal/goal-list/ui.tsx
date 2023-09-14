@@ -15,7 +15,7 @@ export const GoalList = memo(function GoalList({ goals }: GoalListProps) {
       className={styles.wrapper}
       spacing={1}
     >
-      {goals.map((goal, index) => {
+      {goals.map((goal) => {
         return (
           <Link
             key={goal.id}
@@ -23,10 +23,7 @@ export const GoalList = memo(function GoalList({ goals }: GoalListProps) {
             params={{ ...goal }}
             style={{ width: '100%' }}
           >
-            <GoalListItem
-              goal={goal}
-              index={index + 1}
-            />
+            <GoalListItem goal={goal} />
           </Link>
         )
       })}

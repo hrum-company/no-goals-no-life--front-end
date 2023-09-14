@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { CSSProperties, memo } from 'react'
 
 import { useElementHeight } from 'shared/hooks'
@@ -7,13 +8,19 @@ import { PageLayoutHeaderProps } from '../types'
 
 export const PageLayoutHeader = memo(function PageLayoutHeader({
   children,
+  className,
+  noWrapperHeight,
 }: PageLayoutHeaderProps) {
   // Hooks
-  const [headerRef, headerHeight] = useElementHeight<HTMLDivElement>({ observeChange: true })
+  const [headerRef, headerHeight] = useElementHeight<HTMLDivElement>({
+    observeChange: !noWrapperHeight,
+  })
 
   // Vars
+  const HeaderClassName = classNames(classes.header, className)
+
   const style = {
-    minHeight: `${headerHeight}px`,
+    minHeight: !noWrapperHeight ? `${headerHeight}px` : null,
   } as CSSProperties
 
   return (
@@ -23,7 +30,7 @@ export const PageLayoutHeader = memo(function PageLayoutHeader({
     >
       <div
         ref={headerRef}
-        className={classes.header}
+        className={HeaderClassName}
       >
         {children}
       </div>

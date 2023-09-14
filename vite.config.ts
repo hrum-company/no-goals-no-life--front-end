@@ -9,5 +9,10 @@ export default defineConfig({
     https: true,
     port: 10888,
   },
+  resolve: {
+    alias: {
+      '@mui/material': '@mui/joy',
+    },
+  },
   plugins: [react(), tsconfigPaths(), mkcert()],
 })

@@ -1,4 +1,5 @@
-import { FormControl, FormHelperText, FormLabel, Input, Typography } from '@mui/joy'
+import { Create, Info } from '@mui/icons-material'
+import { Input } from '@mui/joy'
 import { ChangeEvent, memo, useCallback } from 'react'
 
 import classes from './styles.module.scss'
@@ -21,36 +22,18 @@ export const GoalNameInput = memo(function GoalNameInput({
   )
 
   return (
-    <FormControl className={classes.form}>
-      <FormLabel>
-        <Typography
-          level="body-lg"
-          color="primary"
-        >
-          Название
-        </Typography>
-      </FormLabel>
-      <Input
-        value={value}
-        placeholder="Название"
-        onChange={handleChanged}
-        fullWidth
-        variant="soft"
-        size="lg"
-        color="neutral"
-        disabled={disabled}
-        readOnly={readOnly}
-      />
-      {withHelperText && (
-        <FormHelperText>
-          <Typography
-            level="body-sm"
-            color="danger"
-          >
-            * В будущем название не изменить.
-          </Typography>
-        </FormHelperText>
-      )}
-    </FormControl>
+    <Input
+      value={value}
+      onChange={handleChanged}
+      fullWidth
+      variant="outlined"
+      size="lg"
+      color="neutral"
+      disabled={disabled}
+      readOnly={readOnly}
+      placeholder="Моя цель"
+      startDecorator={<Create color="primary" />}
+      sx={{ borderRadius: 12, fontWeight: 500 }}
+    />
   )
 })

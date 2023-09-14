@@ -1,3 +1,4 @@
+import { EmojiEventsOutlined } from '@mui/icons-material'
 import { Button, Card, CardActions, CircularProgress, Stack, Typography } from '@mui/joy'
 import { Link } from 'atomic-router-react'
 import { memo } from 'react'
@@ -6,13 +7,22 @@ import { routes } from 'shared/routing'
 
 import { BookCardProps } from './types'
 
-export const BookCard = memo(function BookCard({ book }: BookCardProps) {
+export const BookCard = memo(function BookCard({
+  book,
+
+  title = 'Ваша книга целей',
+  buttonSide,
+}: BookCardProps) {
+  const completedGoalsCount = book.completedGoalsCount
+  const goalsCount = book.goals?.length || 0
+  const progressValue = Math.round(goalsCount !== 0 ? (completedGoalsCount / goalsCount) * 100 : 0)
+
   return (
     <Card
       variant="solid"
       color="primary"
       invertedColors
-      sx={{ width: '100%' }}
+      sx={{ width: '100%', borderRadius: 16 }}
     >
       <Stack
         direction="row"
@@ -22,36 +32,45 @@ export const BookCard = memo(function BookCard({ book }: BookCardProps) {
         <CircularProgress
           size="lg"
           determinate
-          value={40}
-        />
+          value={progressValue}
+        >
+          <EmojiEventsOutlined />
+        </CircularProgress>
         <Stack>
-          <Typography level="body-md">Ваша книга целей</Typography>
-          <Typography level="title-md">{book.name}</Typography>
+          <Typography level="body-md">{title}</Typography>
+          <Typography level="title-lg">{book.name}</Typography>
+          <Typography level="body-sm">Выполнено {progressValue}%</Typography>
         </Stack>
       </Stack>
 
       <CardActions>
-        <Button
-          variant="soft"
-          size="sm"
-          fullWidth
-        >
-          Настроить
-        </Button>
+        {buttonSide ? (
+          buttonSide
+        ) : (
+          <>
+            <Button
+              variant="soft"
+              size="sm"
+              fullWidth
+            >
+              Настроить
+            </Button>
 
-        <Link
-          style={{ width: '100%' }}
-          to={routes.goal.create}
-          params={{ bookId: book?.id || 0 }}
-        >
-          <Button
-            variant="solid"
-            size="sm"
-            fullWidth
-          >
-            Добавить цель
-          </Button>
-        </Link>
+            <Link
+              style={{ width: '100%' }}
+              to={routes.goal.create}
+              params={{ bookId: book.id || 0 }}
+            >
+              <Button
+                variant="solid"
+                size="sm"
+                fullWidth
+              >
+                Добавить цель
+              </Button>
+            </Link>
+          </>
+        )}
       </CardActions>
     </Card>
   )

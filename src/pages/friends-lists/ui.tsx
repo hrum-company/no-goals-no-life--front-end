@@ -1,65 +1,92 @@
+import { FavoriteBorder } from '@mui/icons-material'
 import { Button, Sheet, Stack, Typography } from '@mui/joy'
+import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
-import { PageLayout } from 'shared/ui'
+import { BookCard, BookCardSkeleton } from 'widgets/book'
+import { Navigation } from 'widgets/navigation'
 
-interface List {
-  name: string
-  goalsCount: number
-  completedGoalsCount: number
-  hidden: boolean
-}
+import { $$book } from 'entities/book'
 
-interface FriendsList {
-  id: string
-  user: string
-  list: List
-}
+import {
+  Div,
+  Header,
+  HeaderContent,
+  PageLayout,
+  PageLayoutContent,
+  PageLayoutFooter,
+  PageLayoutHeader,
+} from 'shared/ui'
 
-const friendsLists: FriendsList[] = [
-  {
-    id: '1:1',
-    user: 'Денис',
-    list: {
-      name: 'Я справлюсь!',
-      goalsCount: 20,
-      completedGoalsCount: 10,
-      hidden: false,
-    },
-  },
-  {
-    id: '2:2',
-    user: 'Артем',
-    list: {
-      name: 'Я Артём!',
-      goalsCount: 1,
-      completedGoalsCount: 0,
-      hidden: true,
-    },
-  },
-]
+import classes from './styles.module.scss'
 
 export const FriendsListsPage = memo(function FriendsListsPage() {
-  const renderFriendsList = (friendsList: FriendsList) => (
-    <Sheet
-      key={friendsList.id}
-      variant="soft"
-      sx={{ p: 2, width: '100%', borderRadius: '16px' }}
-    >
-      <Stack spacing={1}>
-        <Typography>{friendsList.user}</Typography>
-        <Typography>Название: {friendsList.list.name}</Typography>
-        <Typography>
-          Целей: {friendsList.list.completedGoalsCount.toString()} /{' '}
-          {friendsList.list.goalsCount.toString()}
-        </Typography>
-        {!friendsList.list.hidden && <Button size="sm">Открыть</Button>}
-      </Stack>
-    </Sheet>
-  )
+  // Effects
+  const [book, bookLoading] = useUnit([$$book.$item, $$book.loadAll.$pending])
+
   return (
     <PageLayout>
-      <Stack spacing={1}>{friendsLists.map((friendsList) => renderFriendsList(friendsList))}</Stack>
+      <PageLayoutHeader>
+        <Header className={classes.header}>
+          <HeaderContent>У тебя нет друзяй</HeaderContent>
+        </Header>
+      </PageLayoutHeader>
+
+      <PageLayoutContent className={classes.content}>
+        <Div>
+          <Stack spacing={2}>
+            {bookLoading && book ? (
+              <BookCardSkeleton />
+            ) : (
+              book && (
+                <BookCard
+                  book={book}
+                  title="Книга целей Артёма Александровича"
+                  buttonSide={
+                    <>
+                      <Button fullWidth>Перейти</Button>
+                      <Button
+                        color="danger"
+                        variant="soft"
+                      >
+                        <FavoriteBorder />
+                      </Button>
+                    </>
+                  }
+                />
+              )
+            )}
+
+            {book && (
+              <BookCard
+                book={book}
+                title="Книга целей Диси"
+                buttonSide={
+                  <>
+                    <Button
+                      fullWidth
+                      disabled
+                    >
+                      Приватная книга
+                    </Button>
+                    <Button
+                      color="danger"
+                      variant="soft"
+                      disabled
+                    >
+                      <FavoriteBorder />
+                    </Button>
+                  </>
+                }
+              />
+            )}
+          </Stack>
+        </Div>
+      </PageLayoutContent>
+
+      <PageLayoutFooter>
+        <Navigation />
+      </PageLayoutFooter>
     </PageLayout>
   )
 })

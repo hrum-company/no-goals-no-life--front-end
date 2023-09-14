@@ -1,4 +1,5 @@
-import { FormControl, FormHelperText, FormLabel, Textarea, Typography } from '@mui/joy'
+import { Create, Info } from '@mui/icons-material'
+import { Textarea } from '@mui/joy'
 import { ChangeEvent, memo, useCallback } from 'react'
 
 import classes from './styles.module.scss'
@@ -20,35 +21,17 @@ export const GoalDescriptionTextarea = memo(function GoalDescriptionTextarea({
   )
 
   return (
-    <FormControl className={classes.form}>
-      <FormLabel>
-        <Typography
-          level="body-lg"
-          color="primary"
-        >
-          Описание
-        </Typography>
-      </FormLabel>
-      <Textarea
-        value={value}
-        placeholder="Описание"
-        onChange={handleChanged}
-        size="lg"
-        minRows={3}
-        maxRows={3}
-        readOnly={readOnly}
-      />
-
-      {withHelperText && (
-        <FormHelperText>
-          <Typography
-            level="body-sm"
-            color="primary"
-          >
-            Опишите свою цель для себя, не сдерживайтесь.
-          </Typography>
-        </FormHelperText>
-      )}
-    </FormControl>
+    <Textarea
+      value={value}
+      placeholder="Описание"
+      onChange={handleChanged}
+      variant="outlined"
+      color="neutral"
+      size="lg"
+      minRows={3}
+      readOnly={readOnly}
+      startDecorator={<Create color="primary" />}
+      sx={{ borderRadius: 12, fontWeight: 500 }}
+    />
   )
 })

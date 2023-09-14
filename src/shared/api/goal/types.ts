@@ -18,6 +18,8 @@ export interface Goal {
   name: Name
   description?: string
 
+  order: number
+
   completed: boolean
   createdAt: DateTime
   completedAt?: DateTime

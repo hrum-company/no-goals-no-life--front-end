@@ -1,11 +1,7 @@
 .root {
-  width: 100%;
-}
-
-.chips {
+  margin-top: 8px;
+  
   & > * {
     margin-right: 8px;
-    margin-top: 8px;
   }
-  // overflow-x: auto;
 }

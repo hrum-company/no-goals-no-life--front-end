@@ -16,6 +16,7 @@ import { routes } from 'shared/routing'
 const requestFindOneGoalFx = attach({ effect: api.goal.requestFindOneGoalFx })
 const requestCreateGoalFx = attach({ effect: api.goal.requestCreateGoalFx })
 const requestEditGoalFx = attach({ effect: api.goal.requestEditGoalFx })
+const requestCompleteGoalFx = attach({ effect: api.goal.requestCompleteGoalFx })
 
 //#endregion
 
@@ -39,6 +40,7 @@ const loadOne = ModelEventFactory<{ bookId: number; id: number }>()
 const loadAll = ModelEventFactory()
 const created = ModelEventFactory<number>()
 const edited = ModelEventFactory()
+const completed = ModelEventFactory<{ bookId: number; id: number }>()
 
 const toCreateReseted = reset({ target: [toCreateName.$value, toCreateDescription.$value] })
 
@@ -112,6 +114,20 @@ sample({
   target: edited.done,
 })
 
+//? Complete
+sample({
+  clock: [completed.inited],
+  target: requestCompleteGoalFx,
+})
+
+completed.$pending = requestCompleteGoalFx.pending
+$goal.on(requestCompleteGoalFx.doneData, (_, goal) => goal)
+
+sample({
+  clock: requestCompleteGoalFx.done,
+  target: completed.done,
+})
+
 //#endregion
 
 //#region //* Model
@@ -145,6 +161,7 @@ export interface GoalModel {
   loadAll?: ModelEvent<void>
   create: ModelEvent<number>
   edit: ModelEvent<void>
+  complete: ModelEvent<{ bookId: number; id: number }>
 }
 
 export const $$goal: GoalModel = {
@@ -165,6 +182,7 @@ export const $$goal: GoalModel = {
   loadAll: loadAll,
   create: created,
   edit: edited,
+  complete: completed,
 }
 
 //#endregion

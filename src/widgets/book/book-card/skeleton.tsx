@@ -5,7 +5,7 @@ export const BookCardSkeleton = memo(function BookCardSkeleton() {
   return (
     <Card
       variant="plain"
-      sx={{ width: '100%' }}
+      sx={{ width: '100%', borderRadius: 16 }}
     >
       <Stack
         direction="row"
@@ -19,14 +19,14 @@ export const BookCardSkeleton = memo(function BookCardSkeleton() {
           height={64}
         />
         <Stack>
-          <Typography
-            color="primary"
-            level="body-md"
-          >
+          <Typography level="body-md">
             <Skeleton loading>Ваша книга целей</Skeleton>
           </Typography>
-          <Typography level="title-md">
-            <Skeleton loading>Ваша книга целей</Skeleton>
+          <Typography level="title-lg">
+            <Skeleton loading>100 жизненных целей</Skeleton>
+          </Typography>
+          <Typography level="body-sm">
+            <Skeleton loading>Выполнено 0%</Skeleton>
           </Typography>
         </Stack>
       </Stack>

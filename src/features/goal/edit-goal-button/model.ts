@@ -45,7 +45,7 @@ export const editGoalSubmited = createEvent()
 //#region Effects -----
 
 const successEditGoalFx = createEffect(async () => {
-  console.log('Изменения сохранены')
+  // console.log('Изменения сохранены')
 })
 
 //#endregion -----

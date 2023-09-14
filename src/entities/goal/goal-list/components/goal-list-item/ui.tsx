@@ -1,48 +1,36 @@
-import { Card, Chip, Stack, Typography } from '@mui/joy'
+import { Card, CardContent, CardCover, Typography } from '@mui/joy'
 import { memo } from 'react'
 
 import classes from './styles.module.scss'
 import { GoalListItemProps } from './types'
 
-export const GoalListItem = memo(function GoalListItem({ goal, index }: GoalListItemProps) {
+export const GoalListItem = memo(function GoalListItem({ goal }: GoalListItemProps) {
   return (
     <Card
-      variant="outlined"
-      color="neutral"
+      variant="soft"
       className={classes.root}
+      sx={{ borderRadius: 16 }}
     >
-      <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        spacing={1}
+      <CardCover
+        className={classes.cover}
+        sx={{ left: 'auto' }}
       >
-        <div className={classes.content}>
-          <Typography
-            color="primary"
-            level="body-md"
-          >
-            №{index}
-          </Typography>
-          <Typography
-            color="neutral"
-            level="title-lg"
-            noWrap
-          >
-            {goal.name}
-          </Typography>
-        </div>
-
-        {goal.completed && (
-          <Chip
-            className={classes.right}
-            variant="outlined"
-            color="success"
-          >
-            Выполнено
-          </Chip>
-        )}
-      </Stack>
+        <Typography
+          level="inherit"
+          color={goal.completed ? 'success' : 'primary'}
+        >
+          {goal.order}
+        </Typography>
+      </CardCover>
+      <CardContent>
+        <Typography
+          level="title-lg"
+          noWrap
+        >
+          {goal.name}
+        </Typography>
+        <Typography level="body-md">{goal.completed ? 'Выполнено' : 'Ждёт выполнения'}</Typography>
+      </CardContent>
     </Card>
   )
 })

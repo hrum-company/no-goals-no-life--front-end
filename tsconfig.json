@@ -4,6 +4,9 @@
     "baseUrl": "./src",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "paths": {
+      "@mui/material": ["./node_modules/@mui/joy"]
+    },
     "plugins": [{ "name": "ts-plugin-scss-modules" }],
     "module": "ESNext",
     "skipLibCheck": true,

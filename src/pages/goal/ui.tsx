@@ -1,21 +1,26 @@
-import { Button, Card, Stack, Typography } from '@mui/joy'
+import { Button, Stack } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo, useCallback } from 'react'
 
-import { $$goal, GoalInfoChips } from 'entities/goal'
+import {
+  $$goal,
+  GoalDescription,
+  GoalDescriptionSkeleton,
+  GoalPageCard,
+  GoalPageCardSkeleton,
+} from 'entities/goal'
 
 import { routes } from 'shared/routing'
 import {
-  Footer,
   Header,
   HeaderBack,
-  HeaderContent,
   HeaderLeft,
   PageLayout,
   PageLayoutContent,
-  PageLayoutFooter,
   PageLayoutHeader,
 } from 'shared/ui'
+
+import classes from './styles.module.scss'
 
 export const GoalPage = memo(function GoalPage() {
   const [goal, goalLoading] = useUnit([$$goal.$item, $$goal.loadOne.$pending])
@@ -27,75 +32,48 @@ export const GoalPage = memo(function GoalPage() {
     routes.goal.edit.open({ ...goal })
   }, [goal])
 
-  if (!goal || goalLoading) {
-    return 'loading..'
-  }
-
   return (
     <PageLayout>
-      <PageLayoutHeader>
-        <Header>
+      <PageLayoutHeader noWrapperHeight>
+        <Header
+          className={classes.header}
+          noBorder
+        >
           <HeaderLeft>
             <HeaderBack />
           </HeaderLeft>
-
-          <HeaderContent>Цель какая-то</HeaderContent>
         </Header>
       </PageLayoutHeader>
 
-      <PageLayoutContent>
-        <Stack spacing={2}>
-          <Stack
-            spacing={0.5}
-            sx={{ width: '100%' }}
-          >
-            <Typography
-              level="title-lg"
-              color="primary"
-            >
-              Название
-            </Typography>
-            <Card
-              sx={{ width: '100%' }}
-              variant="outlined"
-            >
-              <Typography>{goal.name}</Typography>
-            </Card>
-          </Stack>
+      <PageLayoutContent className={classes.content}>
+        <Stack spacing={1.5}>
+          {goalLoading ? (
+            <GoalPageCardSkeleton />
+          ) : (
+            goal && (
+              <GoalPageCard
+                goal={goal}
+                actionSlot={
+                  <Button
+                    variant="soft"
+                    size="sm"
+                    fullWidth
+                    onClick={handleEditOpened}
+                  >
+                    Редактировать
+                  </Button>
+                }
+              />
+            )
+          )}
 
-          <Stack
-            sx={{ width: '100%' }}
-            spacing={0.5}
-          >
-            <Typography
-              level="title-lg"
-              color="primary"
-            >
-              Описание
-            </Typography>
-            <Card
-              sx={{ width: '100%' }}
-              variant="outlined"
-            >
-              <Typography>{goal.description || 'Отсутствует'}</Typography>
-            </Card>
-          </Stack>
-
-          <GoalInfoChips goal={goal} />
+          {goalLoading ? (
+            <GoalDescriptionSkeleton />
+          ) : (
+            goal && !!goal.description && <GoalDescription description={goal.description} />
+          )}
         </Stack>
       </PageLayoutContent>
-
-      <PageLayoutFooter>
-        <Footer>
-          <Button
-            fullWidth
-            size="lg"
-            onClick={handleEditOpened}
-          >
-            Редактировать
-          </Button>
-        </Footer>
-      </PageLayoutFooter>
     </PageLayout>
   )
 })

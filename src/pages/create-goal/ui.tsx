@@ -16,16 +16,21 @@ import {
   PageLayoutHeader,
 } from 'shared/ui'
 
+import classes from './styles.module.scss'
+
 export const CreateGoalPage = memo(function CreateGoalPage() {
   return (
     <PageLayout>
       <PageLayoutHeader>
-        <Header>
+        <Header
+          className={classes.header}
+          noBorder
+        >
           <HeaderLeft>
             <HeaderBack />
           </HeaderLeft>
 
-          <HeaderContent>Создание цели</HeaderContent>
+          <HeaderContent>Создание</HeaderContent>
         </Header>
       </PageLayoutHeader>
 
