@@ -1,8 +1,8 @@
-import { Card, CardCover, Stack, Typography } from '@mui/joy'
+import { Stack } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
-import { BookCard, BookCardSkeleton } from 'widgets/book'
+import { BookCard, BookCardSkeleton, EditBookModal } from 'widgets/book'
 import { Navigation } from 'widgets/navigation'
 
 import { $$book } from 'entities/book'
@@ -18,6 +18,7 @@ import {
   PageLayoutContent,
   PageLayoutFooter,
   PageLayoutHeader,
+  PageLayoutModals,
 } from 'shared/ui'
 
 export const HomePage = memo(function GoalsListPage() {
@@ -46,6 +47,10 @@ export const HomePage = memo(function GoalsListPage() {
       <PageLayoutFooter>
         <Navigation />
       </PageLayoutFooter>
+
+      <PageLayoutModals>
+        <EditBookModal />
+      </PageLayoutModals>
     </PageLayout>
   )
 })
