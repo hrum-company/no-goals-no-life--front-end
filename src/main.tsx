@@ -9,8 +9,6 @@ import './index.scss'
 
 appStarted()
 
-// Отправляет событие инициализации нативному клиенту
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />

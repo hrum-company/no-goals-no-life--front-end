@@ -9,6 +9,9 @@ interface Request<T> {
   data?: T
 }
 
+// const host = 'https://ngnl.dev.local:3000/'
+const host = '/'
+
 export const request = async <ResponseData, RequestData = unknown>({
   path,
   method = 'get',
@@ -16,7 +19,7 @@ export const request = async <ResponseData, RequestData = unknown>({
 }: Request<RequestData>): Promise<ResponseData> => {
   return axios<ResponseData>({
     method,
-    url: `https://ngnl.dev.local:3000/api${path}/${window.location.search || defualtSearch}`,
+    url: `${host}api${path}/${window.location.search || defualtSearch}`,
     data,
   }).then((response) => {
     return response.data

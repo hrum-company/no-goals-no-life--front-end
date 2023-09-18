@@ -3,7 +3,7 @@ import { createEvent, createStore } from 'effector/compat'
 
 //#region //* Stores
 
-const $vkParentConfigData = createStore<ParentConfigData | null>(null)
+export const $vkParentConfigData = createStore<ParentConfigData | null>(null)
 
 //#endregion
 

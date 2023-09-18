@@ -15,6 +15,7 @@ export const HeaderAvatar = memo(function HeaderAvatar() {
       <Avatar
         color="primary"
         size="sm"
+        src={user?.photo_100}
       >
         {user ? user.first_name[0] + user.last_name[0] : <Skeleton loading />}
       </Avatar>
