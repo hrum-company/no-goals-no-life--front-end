@@ -1,16 +1,16 @@
+import { EmojiEventsOutlined } from '@mui/icons-material'
 import {
+  Avatar,
   Button,
-  Checkbox,
+  Card,
+  CardActions,
+  CircularProgress,
   FormControl,
-  FormLabel,
-  Input,
-  ListItem,
-  Modal,
-  ModalClose,
-  Sheet,
   Stack,
+  Textarea,
   Typography,
 } from '@mui/joy'
+import { Editor, EditorState, RichUtils } from 'draft-js'
 import { memo, useState } from 'react'
 
 import { Navigation } from 'widgets/navigation'
@@ -24,15 +24,9 @@ import {
   PageLayoutFooter,
   PageLayoutHeader,
 } from 'shared/ui'
+import { Cloud } from 'shared/ui/cloud'
 
 export const DevelopPage = memo(function DevelopPage() {
-  const [open, setOpen] = useState(false)
-
-  // Handlers
-  const handleAlertPushed = () => {
-    setOpen(true)
-  }
-
   return (
     <PageLayout>
       <PageLayoutHeader>
@@ -42,64 +36,49 @@ export const DevelopPage = memo(function DevelopPage() {
       </PageLayoutHeader>
 
       <PageLayoutContent>
-        <Div>
-          <Button
-            color="success"
-            fullWidth
-            onClick={handleAlertPushed}
-          >
-            Показать алерт
-          </Button>
-        </Div>
-
-        <Modal
-          aria-labelledby="modal-title"
-          aria-describedby="modal-desc"
-          open={open}
-          onClose={() => setOpen(false)}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            p: 2,
-          }}
-        >
-          <Sheet sx={{ width: '100%', p: 2, borderRadius: 8 }}>
-            <ModalClose />
-
-            <Stack spacing={2}>
-              <Typography level="title-md">Редактирование книги</Typography>
-
-              <FormControl>
-                <FormLabel>Название</FormLabel>
-                <Input placeholder="Введите название" />
-              </FormControl>
-
+        <Stack spacing={1}>
+          <Div>
+            <Cloud borderRadius={16}>
               <Stack
                 direction="row"
                 alignItems="center"
                 spacing={1}
-                sx={{ position: 'relative' }}
               >
-                <Stack>
-                  <Typography level="title-sm">Скрыть цели</Typography>
-                  <Typography level="body-xs">
-                    Друзья не смогут посмотреть ваши цели, но будут видеть ваш прогресс
-                  </Typography>
-                </Stack>
-                <Checkbox overlay />
+                <Avatar color="primary">ДД</Avatar>
+                <Typography>Денис Русланович</Typography>
               </Stack>
-
-              <Button
-                size="sm"
-                fullWidth
+              <Card
+                sx={{ margin: '0 -16px -16px', borderRadius: 16 }}
+                variant="solid"
+                color="primary"
+                invertedColors
               >
-                Сохранить
-              </Button>
-            </Stack>
-          </Sheet>
-        </Modal>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <CircularProgress
+                    size="lg"
+                    determinate
+                    value={10}
+                  >
+                    <EmojiEventsOutlined />
+                  </CircularProgress>
+                  <Stack>
+                    <Typography level="body-md">Заголовок?</Typography>
+                    <Typography level="title-lg">Название книги целей</Typography>
+                    <Typography level="body-sm">Выполнено 10%</Typography>
+                  </Stack>
+                </Stack>
+
+                <CardActions>
+                  <Button>Открыть</Button>
+                </CardActions>
+              </Card>
+            </Cloud>
+          </Div>
+        </Stack>
       </PageLayoutContent>
 
       <PageLayoutFooter>
