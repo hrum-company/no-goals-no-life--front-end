@@ -1,4 +1,4 @@
-import { ChecklistRounded, Code, Diversity1 } from '@mui/icons-material'
+import { ChecklistRounded, Code, Group } from '@mui/icons-material'
 import { RouteInstance, RouteParams } from 'atomic-router'
 import { Effect, Event, createEvent, createStore, sample } from 'effector'
 
@@ -19,7 +19,7 @@ $currentNav.on(currentNavChanged, (_, nav) => nav)
 
 export const navs: Record<NavName, NavItem> = {
   home: NavFactory('home', routes.home, ChecklistRounded, currentNavChanged),
-  friendsBooks: NavFactory('friendsBooks', routes.friendsBooks, Diversity1, currentNavChanged),
+  friendsBooks: NavFactory('friendsBooks', routes.friendsBooks, Group, currentNavChanged),
   develop: NavFactory('develop', routes.develop, Code, currentNavChanged),
 }
 
