@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import { CreateGoalForm } from 'widgets/goal'
+import { CreateGoalForm, CreateGoalPreview } from 'widgets/goal'
 
 import { CreateGoalButton } from 'features/goal'
 
@@ -22,10 +22,7 @@ export const CreateGoalPage = memo(function CreateGoalPage() {
   return (
     <PageLayout>
       <PageLayoutHeader>
-        <Header
-          className={classes.header}
-          noBorder
-        >
+        <Header className={classes.header}>
           <HeaderLeft>
             <HeaderBack />
           </HeaderLeft>
@@ -35,6 +32,7 @@ export const CreateGoalPage = memo(function CreateGoalPage() {
       </PageLayoutHeader>
 
       <PageLayoutContent>
+        <CreateGoalPreview />
         <CreateGoalForm />
       </PageLayoutContent>
 

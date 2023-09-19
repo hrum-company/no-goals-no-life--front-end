@@ -1,4 +1,3 @@
-import { Create, Info } from '@mui/icons-material'
 import { Textarea } from '@mui/joy'
 import { ChangeEvent, memo, useCallback } from 'react'
 
@@ -10,7 +9,6 @@ export const GoalDescriptionTextarea = memo(function GoalDescriptionTextarea({
   onChange = () => null,
 
   readOnly = false,
-  withHelperText = false,
 }: GoalDescriptionTextareaProps) {
   // Handlers
   const handleChanged = useCallback(
@@ -25,12 +23,11 @@ export const GoalDescriptionTextarea = memo(function GoalDescriptionTextarea({
       value={value}
       placeholder="Описание"
       onChange={handleChanged}
-      variant="outlined"
+      variant="soft"
       color="neutral"
       size="lg"
       minRows={3}
       readOnly={readOnly}
-      startDecorator={<Create color="primary" />}
       sx={{ borderRadius: 12, fontWeight: 500 }}
     />
   )

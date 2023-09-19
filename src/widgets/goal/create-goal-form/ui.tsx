@@ -1,13 +1,13 @@
-import { Create, Info } from '@mui/icons-material'
-import { Card, CardContent, CardCover, Stack, Typography } from '@mui/joy'
+import { Info } from '@mui/icons-material'
+import { Stack, Typography } from '@mui/joy'
 import { useUnit } from 'effector-react'
 import { memo } from 'react'
 
 import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
 
-import { $$goal } from 'entities/goal'
+import { $$goal, GoalMarkSelect } from 'entities/goal'
 
-import { Div } from 'shared/ui'
+import { Cloud, Div } from 'shared/ui'
 
 import classes from './styles.module.scss'
 
@@ -17,7 +17,7 @@ export const CreateGoalForm = memo(function CreateGoalForm() {
   const description = useUnit($$goal.toCreate.description)
 
   return (
-    <Div className={classes.root}>
+    <Cloud className={classes.root}>
       <Stack spacing={2}>
         <Stack spacing={1}>
           <GoalNameInput
@@ -44,33 +44,13 @@ export const CreateGoalForm = memo(function CreateGoalForm() {
           </Typography>
         </Stack>
 
+        <GoalMarkSelect />
+
         <GoalDescriptionTextarea
           value={description.$value}
           onChange={description.changed}
         />
       </Stack>
-
-      {/* <Card
-        variant="soft"
-        className={classes.card}
-        sx={{ borderRadius: 16 }}
-      >
-        <CardCover
-          className={classes.cover}
-          sx={{ right: 'auto', bottom: 'auto' }}
-        >
-          <Typography level="inherit">NO GOALS</Typography>
-        </CardCover>
-
-        <CardContent className={classes.content}></CardContent>
-
-        <CardCover
-          className={classes.cover}
-          sx={{ right: 'auto', top: 'auto' }}
-        >
-          <Typography level="inherit">NO LIFE</Typography>
-        </CardCover>
-      </Card> */}
-    </Div>
+    </Cloud>
   )
 })
