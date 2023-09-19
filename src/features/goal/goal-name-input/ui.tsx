@@ -1,4 +1,3 @@
-import { Create, Info } from '@mui/icons-material'
 import { Input } from '@mui/joy'
 import { ChangeEvent, memo, useCallback } from 'react'
 
@@ -11,7 +10,6 @@ export const GoalNameInput = memo(function GoalNameInput({
 
   disabled = false,
   readOnly = false,
-  withHelperText = false,
 }: GoalNameInputProps) {
   // Handlers
   const handleChanged = useCallback(
@@ -23,16 +21,16 @@ export const GoalNameInput = memo(function GoalNameInput({
 
   return (
     <Input
+      className={classes.root}
       value={value}
       onChange={handleChanged}
       fullWidth
-      variant="outlined"
+      variant="soft"
       size="lg"
       color="neutral"
       disabled={disabled}
       readOnly={readOnly}
-      placeholder="Моя цель"
-      startDecorator={<Create color="primary" />}
+      placeholder="Название"
       sx={{ borderRadius: 12, fontWeight: 500 }}
     />
   )

@@ -4,5 +4,4 @@ export interface GoalDescriptionTextareaProps {
   onChange?: (value: string) => void
 
   readOnly?: boolean
-  withHelperText?: boolean
 }

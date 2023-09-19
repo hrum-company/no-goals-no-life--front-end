@@ -43,7 +43,9 @@ export const GoalMarkSelect = memo(function GoalMarkSelect() {
 
   return (
     <Select
-      placeholder="Выбери статус задачи"
+      placeholder="Метка"
+      variant="outlined"
+      size="lg"
       slotProps={{
         listbox: {
           sx: {
@@ -52,6 +54,8 @@ export const GoalMarkSelect = memo(function GoalMarkSelect() {
         },
       }}
       sx={{
+        borderRadius: 12,
+        fontWeight: 500,
         '--ListItemDecorator-size': '44px',
       }}
       renderValue={renderValue}
