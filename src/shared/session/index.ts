@@ -1,7 +1,7 @@
 import { RouteInstance, RouteParams, RouteParamsAndQuery, chainRoute } from 'atomic-router'
 import { attach, createEvent, createStore, sample } from 'effector'
 
-import { User, api } from 'shared/api'
+import { User, authApi } from 'shared/api'
 
 enum AuthStatus {
   Initial = 0,
@@ -10,19 +10,35 @@ enum AuthStatus {
   AuthError,
 }
 
-const requestUserMeFx = attach({ effect: api.user.requestUserMeFx })
+//#region //* API
 
+const requestAuthFx = attach({ effect: authApi.requestAuthFx })
+
+//#endregion
+
+//#region //* Stores
+
+export const $token = createStore<string | null>(null)
 export const $user = createStore<User | null>(null)
 export const $authStatus = createStore<AuthStatus>(AuthStatus.Initial)
 
-$authStatus.on(requestUserMeFx, (status) => {
+//#endregion
+
+//#region //* Bussiness Logic
+
+$authStatus.on(requestAuthFx, (status) => {
   if (status === AuthStatus.Initial) return AuthStatus.Pending
 
   return status
 })
 
-$user.on(requestUserMeFx.doneData, (_, user) => user)
-$authStatus.on(requestUserMeFx.doneData, () => AuthStatus.Authenticated)
+$token.on(requestAuthFx.doneData, (_, response) => response.token)
+$user.on(requestAuthFx.doneData, (_, response) => response.user)
+$authStatus.on(requestAuthFx.done, () => AuthStatus.Authenticated)
+
+//#endregion
+
+//#region //* Route Chain
 
 export function chainAuthorize<Params extends RouteParams>(
   route: RouteInstance<Params>
@@ -38,13 +54,33 @@ export function chainAuthorize<Params extends RouteParams>(
   sample({
     clock: sessionCheckStarted,
     filter: route.$isOpened,
-    fn: () => null,
-    target: requestUserMeFx,
+    fn: () => ({}),
+    target: requestAuthFx,
   })
 
   return chainRoute({
     route,
     beforeOpen: sessionCheckStarted,
-    openOn: [alreadyAuthenticated, requestUserMeFx.done],
+    openOn: [alreadyAuthenticated, requestAuthFx.done],
   })
 }
+
+//#endregion
+
+//? Идеальный вариант
+// Начали проверку
+// Отправили запрос за токеном
+// Токена нет
+// Отправили запрос за юзером
+// Получили вк-юзера
+// Отправили запрос на авторизацию
+// Авторизировались
+// Сохранили токен
+
+//?
+// Начали проверку
+// Отправили запрос за токеном
+// Токен есть
+// Отправили запрос на проверку
+// Проверка прошла успешно
+//
