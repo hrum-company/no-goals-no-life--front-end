@@ -9,7 +9,7 @@ export default defineConfig({
     https: true,
     port: 10888,
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api': 'https://ngnl-back-end.onrender.com/',
     },
   },
   resolve: {
