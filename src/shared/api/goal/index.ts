@@ -6,7 +6,7 @@ import { Goal } from './types'
 
 //#region Find One
 
-type FindOneGoalRequestFx = { id: ID; bookId: ID }
+type FindOneGoalRequestFx = Pick<Goal, 'id' | 'bookId'>
 type FindOneGoalResponse = Goal
 
 const requestFindOneGoalFx = createEffect<FindOneGoalRequestFx, FindOneGoalResponse>(
@@ -21,7 +21,7 @@ const requestFindOneGoalFx = createEffect<FindOneGoalRequestFx, FindOneGoalRespo
 
 //#region Create
 
-type CreateGoalRequestFx = Omit<Goal, 'id' | 'order' | 'completed' | 'createdAt' | 'completedAt'>
+type CreateGoalRequestFx = Pick<Goal, 'bookId' | 'name' | 'markId' | 'description'>
 type CreateGoalRequest = Omit<CreateGoalRequestFx, 'bookId'>
 type CreateGoalResponse = Goal
 
@@ -39,7 +39,7 @@ const requestCreateGoalFx = createEffect<CreateGoalRequestFx, CreateGoalResponse
 
 //#region Edit
 
-type EditGoalRequestFx = Omit<Goal, 'name' | 'order' | 'completed' | 'createdAt' | 'completedAt'>
+type EditGoalRequestFx = Pick<Goal, 'id' | 'bookId' | 'markId' | 'description'>
 type EditGoalRequest = Omit<EditGoalRequestFx, 'id' | 'bookId'>
 type EditGoalResponse = Goal
 

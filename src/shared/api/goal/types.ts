@@ -1,27 +1,5 @@
+import { GoalMark } from '..'
 import { DateTime, ID, Name } from '../base-types'
-
-export type GoalMarkKeys =
-  | 'goal-of-life'
-  | 'warrior-will'
-  | 'for-mother'
-  | 'for-father'
-  | 'egoisto'
-  | 'you-fail'
-  | 'male'
-  | 'female'
-
-/**
- * Метка у цели.
- *
- * @param id - Уникальный идентификатор
- * @param key - Уникальный ключ (для иконки)
- * @param title - Текст метки
- */
-export interface GoalMark {
-  id: ID
-  key: GoalMarkKeys
-  title: string
-}
 
 /**
  * Че-то там кто-то там.
@@ -41,7 +19,8 @@ export interface Goal {
 
   name: Name
   description?: string
-  mark?: GoalMark
+  mark: GoalMark | null
+  markId: ID | null
 
   order: number
 

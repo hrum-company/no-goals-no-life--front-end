@@ -43,8 +43,9 @@ export const GoalListItem = memo(function GoalListItem({ goal }: GoalListItemPro
           spacing={1}
           className={classes.markWrapper}
         >
-          <AbcSharp />
-          <Typography>Текст метки</Typography>
+          <Typography>
+            {goal.mark.icon} {goal.mark.title}
+          </Typography>
         </Stack>
       )}
     </div>

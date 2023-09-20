@@ -148,7 +148,3 @@ export const $$book: BookModel = {
 }
 
 //#endregion
-
-//#region //* Helpers
-
-//#endregion

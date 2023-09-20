@@ -2,11 +2,11 @@ import { Stack, Typography } from '@mui/joy'
 import { useUnit } from 'effector-react'
 import { memo } from 'react'
 
-import { GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
+import { CreateGoalMarkFormItem, GoalDescriptionTextarea, GoalNameInput } from 'features/goal'
 
-import { $$goal, GoalMarkSelect } from 'entities/goal'
+import { $$goal } from 'entities/goal'
 
-import { Cloud, Div } from 'shared/ui'
+import { Cloud } from 'shared/ui'
 
 import classes from './styles.module.scss'
 
@@ -28,7 +28,7 @@ export const CreateGoalForm = memo(function CreateGoalForm() {
           ) : null}
         </Stack>
 
-        <GoalMarkSelect />
+        <CreateGoalMarkFormItem />
 
         <GoalDescriptionTextarea
           value={description.$value}
