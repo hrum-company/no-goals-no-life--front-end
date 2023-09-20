@@ -1,4 +1,3 @@
-import { Info } from '@mui/icons-material'
 import { Stack, Typography } from '@mui/joy'
 import { useUnit } from 'effector-react'
 import { memo } from 'react'
@@ -24,24 +23,9 @@ export const CreateGoalForm = memo(function CreateGoalForm() {
             value={name.$value}
             onChange={name.changed}
           />
-          <Typography
-            justifyContent="center"
-            startDecorator={
-              <Info
-                color="neutral"
-                fontSize="xl2"
-              />
-            }
-            level="body-sm"
-            sx={{
-              opacity: name.$value ? 1 : 0,
-              height: name.$value ? 'inherit' : '0px',
-              overflow: name.$value ? 'hidden' : 'auto',
-              transition: 'opacity 200ms cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            В дальнейшем название не изменить
-          </Typography>
+          {name.$value ? (
+            <Typography level="body-sm">В дальнейшем название не изменить</Typography>
+          ) : null}
         </Stack>
 
         <GoalMarkSelect />
