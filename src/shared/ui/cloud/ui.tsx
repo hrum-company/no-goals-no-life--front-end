@@ -14,7 +14,7 @@ export const Cloud = memo(function Cloud({
       className={className}
       sx={{
         backgroundColor: 'white',
-        boxShadow: '0 2px 20px -8px rgba(0, 0, 0, 0.08)',
+        boxShadow: '0 2px 22px -6px rgba(0, 0, 0, 0.16)',
         borderRadius,
       }}
     >
