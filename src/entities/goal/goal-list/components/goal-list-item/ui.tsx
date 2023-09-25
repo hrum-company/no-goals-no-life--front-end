@@ -1,11 +1,16 @@
-import { AbcSharp } from '@mui/icons-material'
 import { Card, CardContent, CardCover, Stack, Typography } from '@mui/joy'
 import { memo } from 'react'
 
 import classes from './styles.module.scss'
 import { GoalListItemProps } from './types'
 
-export const GoalListItem = memo(function GoalListItem({ goal }: GoalListItemProps) {
+export const GoalListItem = memo(function GoalListItem({
+  goal,
+  statusText: status,
+}: GoalListItemProps) {
+  // Variables
+  const statusText = status || (goal.completed ? 'Выполнено' : 'Ждёт выполнения')
+
   return (
     <div className={classes.root}>
       <Card
@@ -32,9 +37,7 @@ export const GoalListItem = memo(function GoalListItem({ goal }: GoalListItemPro
           >
             {goal.name}
           </Typography>
-          <Typography level="body-md">
-            {goal.completed ? 'Выполнено' : 'Ждёт выполнения'}
-          </Typography>
+          <Typography level="body-md">{statusText}</Typography>
         </CardContent>
       </Card>
       {goal.mark && (
@@ -43,8 +46,9 @@ export const GoalListItem = memo(function GoalListItem({ goal }: GoalListItemPro
           spacing={1}
           className={classes.markWrapper}
         >
-          <AbcSharp />
-          <Typography>Текст метки</Typography>
+          <Typography>
+            {goal.mark.icon} {goal.mark.title}
+          </Typography>
         </Stack>
       )}
     </div>

@@ -35,6 +35,8 @@ export const $goal = createStore<Goal | null>(null)
 
 const toCreateName = EditableFieldFactory<string>('')
 const toCreateDescription = EditableFieldFactory<string>('')
+const toCreateMarkId = EditableFieldFactory<number | null>(null)
+
 const $createCanSubmit = combine(toCreateName.$value, (name) => !!name)
 
 const toEditDescription = EditableFieldFactory<string>('')
@@ -88,7 +90,11 @@ sample({
 //? Create
 sample({
   clock: [created.inited],
-  source: { name: toCreateName.$value, description: toCreateDescription.$value },
+  source: {
+    name: toCreateName.$value,
+    description: toCreateDescription.$value,
+    markId: toCreateMarkId.$value,
+  },
   fn: (data, bookId) => ({ ...data, bookId }),
   target: requestCreateGoalFx,
 })
@@ -119,6 +125,7 @@ sample({
     id: goal?.id || 0,
     bookId: goal?.bookId || 0,
     description,
+    markId: null,
   }),
   target: requestEditGoalFx,
 })
@@ -166,6 +173,7 @@ export interface GoalModel {
   toCreate: {
     name: EditableField<string>
     description: EditableField<string>
+    markId: EditableField<number | null>
   }
   $createCanSubmit: Store<boolean>
   toCreateReseted: Event<void>
@@ -188,6 +196,7 @@ export const $$goal: GoalModel = {
   toCreate: {
     name: toCreateName,
     description: toCreateDescription,
+    markId: toCreateMarkId,
   },
   $createCanSubmit,
   toCreateReseted,

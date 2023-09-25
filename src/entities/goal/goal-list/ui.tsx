@@ -13,7 +13,7 @@ export const GoalList = memo(function GoalList({ goals }: GoalListProps) {
     <Stack
       sx={{ width: '100%' }}
       className={styles.wrapper}
-      spacing={1}
+      spacing={2}
     >
       {goals.map((goal) => {
         return (
