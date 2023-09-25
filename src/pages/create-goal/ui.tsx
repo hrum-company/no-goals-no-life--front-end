@@ -1,3 +1,4 @@
+import { Stack } from '@mui/joy'
 import { memo } from 'react'
 
 import { CreateGoalForm, CreateGoalPreview } from 'widgets/goal'
@@ -5,6 +6,7 @@ import { CreateGoalForm, CreateGoalPreview } from 'widgets/goal'
 import { CreateGoalButton } from 'features/goal'
 
 import {
+  Div,
   Footer,
   Header,
   HeaderBack,
@@ -22,7 +24,7 @@ export const CreateGoalPage = memo(function CreateGoalPage() {
   return (
     <PageLayout>
       <PageLayoutHeader>
-        <Header className={classes.header}>
+        <Header>
           <HeaderLeft>
             <HeaderBack />
           </HeaderLeft>
@@ -31,9 +33,15 @@ export const CreateGoalPage = memo(function CreateGoalPage() {
         </Header>
       </PageLayoutHeader>
 
-      <PageLayoutContent>
-        <CreateGoalPreview />
-        <CreateGoalForm />
+      <PageLayoutContent className={classes.content}>
+        <Stack spacing={2.5}>
+          <Div className={classes.preview}>
+            <CreateGoalPreview />
+          </Div>
+          <Div className={classes.form}>
+            <CreateGoalForm />
+          </Div>
+        </Stack>
       </PageLayoutContent>
 
       <PageLayoutFooter>

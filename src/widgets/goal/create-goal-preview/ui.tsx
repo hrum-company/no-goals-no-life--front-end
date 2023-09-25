@@ -6,9 +6,6 @@ import { $$goal, GoalListItem } from 'entities/goal'
 import { $$goalMark } from 'entities/goal-mark'
 
 import { Goal } from 'shared/api'
-import { Div } from 'shared/ui'
-
-import classes from './styles.module.scss'
 
 export const CreateGoalPreview = memo(function CreateGoalPreview() {
   // Effector
@@ -25,15 +22,16 @@ export const CreateGoalPreview = memo(function CreateGoalPreview() {
     completed: false,
     createdAt: '12-12-2023',
 
-    name: name || 'Будущая цель',
+    name: name || 'Название',
     order: order + 1,
     mark,
     markId,
   }
 
   return (
-    <Div className={classes.root}>
-      <GoalListItem goal={mockGoal} />
-    </Div>
+    <GoalListItem
+      goal={mockGoal}
+      statusText="Цель создаётся"
+    />
   )
 })

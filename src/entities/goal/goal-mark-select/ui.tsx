@@ -12,8 +12,9 @@ export const GoalMarkSelect = memo(function GoalMarkSelect({
   return (
     <Select
       placeholder="Метка"
-      variant="outlined"
+      variant="soft"
       size="lg"
+      color="neutral"
       sx={{
         borderRadius: 12,
         fontWeight: 500,
@@ -22,6 +23,12 @@ export const GoalMarkSelect = memo(function GoalMarkSelect({
       onChange={(_, newValue) => setValue(newValue)}
       disabled={loading}
     >
+      <Option
+        value={null}
+        label="Без метки"
+      >
+        Без метки
+      </Option>
       {items.map((option) => (
         <Option
           key={option.id}
