@@ -28,10 +28,5 @@ export const CreateGoalPreview = memo(function CreateGoalPreview() {
     markId,
   }
 
-  return (
-    <GoalListItem
-      goal={mockGoal}
-      statusText="Цель создаётся"
-    />
-  )
+  return <GoalListItem goal={mockGoal} />
 })

@@ -33,12 +33,13 @@ const requestCompleteGoalFx = attach({ effect: api.goal.requestCompleteGoalFx })
 
 export const $goal = createStore<Goal | null>(null)
 
+const toCreateMarkId = EditableFieldFactory<number | null>(null)
 const toCreateName = EditableFieldFactory<string>('')
 const toCreateDescription = EditableFieldFactory<string>('')
-const toCreateMarkId = EditableFieldFactory<number | null>(null)
 
 const $createCanSubmit = combine(toCreateName.$value, (name) => !!name)
 
+const toEditMarkId = EditableFieldFactory<number | null>(null)
 const toEditDescription = EditableFieldFactory<string>('')
 
 export const $goalLoading = requestFindOneGoalFx.pending
@@ -108,7 +109,10 @@ sample({
 })
 
 //? Edit
-$goal.watch((goal) => toEditDescription.changed(goal?.description || ''))
+$goal.watch((goal) => {
+  toEditDescription.changed(goal?.description || '')
+  toEditMarkId.changed(goal?.markId || null)
+})
 
 sample({
   clock: toEditReseted,
@@ -118,14 +122,21 @@ sample({
 })
 
 sample({
+  clock: toEditReseted,
+  source: $goal,
+  fn: (goal) => goal?.markId || null,
+  target: toEditMarkId.changed,
+})
+
+sample({
   clock: [edited.inited],
-  source: { goal: $goal, description: toEditDescription.$value },
+  source: { goal: $goal, description: toEditDescription.$value, markId: toEditMarkId.$value },
   filter: ({ goal }) => !!goal,
-  fn: ({ goal, description }) => ({
+  fn: ({ goal, description, markId }) => ({
     id: goal?.id || 0,
     bookId: goal?.bookId || 0,
     description,
-    markId: null,
+    markId,
   }),
   target: requestEditGoalFx,
 })
@@ -171,14 +182,15 @@ export interface GoalModel {
   $item: Store<Goal | null>
 
   toCreate: {
+    markId: EditableField<number | null>
     name: EditableField<string>
     description: EditableField<string>
-    markId: EditableField<number | null>
   }
   $createCanSubmit: Store<boolean>
   toCreateReseted: Event<void>
 
   toEdit: {
+    markId: EditableField<number | null>
     description: EditableField<string>
   }
   toEditReseted: Event<void>
@@ -194,14 +206,15 @@ export const $$goal: GoalModel = {
   $item: $goal,
 
   toCreate: {
+    markId: toCreateMarkId,
     name: toCreateName,
     description: toCreateDescription,
-    markId: toCreateMarkId,
   },
   $createCanSubmit,
   toCreateReseted,
 
   toEdit: {
+    markId: toEditMarkId,
     description: toEditDescription,
   },
   toEditReseted,

@@ -1,36 +1,32 @@
-import { Input } from '@mui/joy'
+import { Textarea } from '@mui/joy'
 import { ChangeEvent, memo, useCallback } from 'react'
 
-import classes from './styles.module.scss'
-import { GoalNameInputProps } from './types'
+import { GoalDescriptionFormItemProps } from './types'
 
-export const GoalNameInput = memo(function GoalNameInput({
+export const GoalDescriptionFormItem = memo(function GoalDescriptionFormItem({
   value = '',
   onChange = () => null,
 
-  disabled = false,
   readOnly = false,
-}: GoalNameInputProps) {
+}: GoalDescriptionFormItemProps) {
   // Handlers
   const handleChanged = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
       onChange(e.target.value)
     },
     [onChange]
   )
 
   return (
-    <Input
-      className={classes.root}
+    <Textarea
       value={value}
+      placeholder="Описание"
       onChange={handleChanged}
-      fullWidth
       variant="soft"
-      size="lg"
       color="neutral"
-      disabled={disabled}
+      size="lg"
+      minRows={3}
       readOnly={readOnly}
-      placeholder="Название"
       sx={{ borderRadius: 12, fontWeight: 500 }}
     />
   )
