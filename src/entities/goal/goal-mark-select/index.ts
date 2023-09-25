@@ -1,1 +1,0 @@
-export { GoalMarkSelect } from './ui'

@@ -1,13 +1,15 @@
+import { Stack } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
-import { EditGoalForm } from 'widgets/goal'
+import { EditGoalForm, EditGoalPreview } from 'widgets/goal'
 
 import { EditGoalButton } from 'features/goal'
 
 import { $goal, $goalLoading } from 'entities/goal'
 
 import {
+  Div,
   Footer,
   Header,
   HeaderBack,
@@ -18,6 +20,8 @@ import {
   PageLayoutFooter,
   PageLayoutHeader,
 } from 'shared/ui'
+
+import classes from './styles.module.scss'
 
 export const EditGoalPage = memo(function EditGoalPage() {
   const [goal, goalLoading] = useUnit([$goal, $goalLoading])
@@ -38,8 +42,15 @@ export const EditGoalPage = memo(function EditGoalPage() {
         </Header>
       </PageLayoutHeader>
 
-      <PageLayoutContent>
-        <EditGoalForm />
+      <PageLayoutContent className={classes.content}>
+        <Stack spacing={2.5}>
+          <Div className={classes.preview}>
+            <EditGoalPreview />
+          </Div>
+          <Div className={classes.form}>
+            <EditGoalForm />
+          </Div>
+        </Stack>
       </PageLayoutContent>
 
       <PageLayoutFooter>

@@ -1,6 +1,5 @@
 //#region //* Types
 import { createEvent, createStore } from 'effector'
-import { debug } from 'patronum'
 
 export interface SuccessAlertData {
   type: 'success'
@@ -21,8 +20,6 @@ let alertIncrement = 1
 
 const $alerts = createStore<IAlert[]>([])
 
-debug($alerts)
-
 //#endregion
 
 //#region //* Events
@@ -41,8 +38,6 @@ const alertClosed = createEvent<number>()
 $alerts.on(alertPushed, (alerts, alert) => [...alerts, { ...alert, id: ++alertIncrement }])
 
 $alerts.on(alertClosed, (alerts, id) => {
-  console.log(id)
-
   const index = alerts.findIndex((alert) => alert.id === id)
 
   if (index === -1) {

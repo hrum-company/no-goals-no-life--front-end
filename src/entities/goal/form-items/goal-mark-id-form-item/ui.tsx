@@ -1,14 +1,14 @@
 import { Option, Select } from '@mui/joy'
 import { memo } from 'react'
 
-import { GoalMarkSelectProps } from './types'
+import { GoalMarkIdFormItemProps } from './types'
 
-export const GoalMarkSelect = memo(function GoalMarkSelect({
+export const GoalMarkIdFormItem = memo(function GoalMarkIdFormItem({
   items,
   loading,
   value,
-  setValue,
-}: GoalMarkSelectProps) {
+  onChange,
+}: GoalMarkIdFormItemProps) {
   return (
     <Select
       placeholder="Метка"
@@ -20,11 +20,11 @@ export const GoalMarkSelect = memo(function GoalMarkSelect({
         fontWeight: 500,
       }}
       value={value}
-      onChange={(_, newValue) => setValue(newValue)}
+      onChange={(_, newValue) => onChange(newValue === 0 ? null : newValue)}
       disabled={loading}
     >
       <Option
-        value={null}
+        value={0}
         label="Без метки"
       >
         Без метки

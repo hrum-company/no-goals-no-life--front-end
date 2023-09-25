@@ -4,15 +4,15 @@ import { memo } from 'react'
 import { $$goal, GoalMarkIdFormItem } from 'entities/goal'
 import { $$goalMark } from 'entities/goal-mark'
 
-export const CreateGoalMarkFormItem = memo(function CreateGoalMarkFormItem() {
+export const EditGoalMarkIdFormItem = memo(function EditGoalMarkIdFormItem() {
   // Effector
-  const [items, loading] = useUnit([$$goalMark.$items, $$goalMark.loadAll.$pending])
-  const markId = useUnit($$goal.toCreate.markId)
+  const [marks, loaded] = useUnit([$$goalMark.$items, $$goalMark.$loadAllLoaded])
+  const markId = useUnit($$goal.toEdit.markId)
 
   return (
     <GoalMarkIdFormItem
-      items={items}
-      loading={loading}
+      items={marks}
+      loading={!loaded}
       value={markId.$value}
       onChange={markId.changed}
     />
