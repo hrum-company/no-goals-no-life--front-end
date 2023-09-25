@@ -2,7 +2,7 @@ import { Stack } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
-import { BookCard, BookCardSkeleton, EditBookModal } from 'widgets/book'
+import { BookCard, BookCardSkeleton, BookHomePageCard, EditBookModal } from 'widgets/book'
 import { Navigation } from 'widgets/navigation'
 
 import { $$book } from 'entities/book'
@@ -10,10 +10,6 @@ import { GoalList, GoalListSkeleton } from 'entities/goal'
 
 import {
   Div,
-  Header,
-  HeaderAvatar,
-  HeaderContent,
-  HeaderLeft,
   PageLayout,
   PageLayoutContent,
   PageLayoutFooter,
@@ -21,24 +17,22 @@ import {
   PageLayoutModals,
 } from 'shared/ui'
 
+import { HomeHeader } from './components'
+import classes from './styles.module.scss'
+
 export const HomePage = memo(function GoalsListPage() {
   // Effector
   const [book, bookLoading] = useUnit([$$book.$item, $$book.loadAll.$pending])
 
   return (
     <PageLayout>
-      <PageLayoutHeader>
-        <Header>
-          <HeaderLeft>
-            <HeaderAvatar />
-          </HeaderLeft>
-          <HeaderContent>Главная</HeaderContent>
-        </Header>
+      <PageLayoutHeader noWrapperHeight>
+        <HomeHeader />
       </PageLayoutHeader>
 
-      <PageLayoutContent>
+      <PageLayoutContent className={classes.content}>
         <Stack spacing={2}>
-          <Div>{bookLoading && book ? <BookCardSkeleton /> : book && <BookCard book={book} />}</Div>
+          <BookHomePageCard />
 
           <Div>{bookLoading ? <GoalListSkeleton /> : <GoalList goals={book?.goals || []} />}</Div>
         </Stack>

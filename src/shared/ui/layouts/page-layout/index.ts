@@ -5,3 +5,5 @@ export { PageLayoutFooter } from './components/page-layout-footer'
 export { PageLayoutModals } from './components/page-layout-modals'
 
 export type * from './types'
+
+export { PageLayoutSizesContext } from './context'
