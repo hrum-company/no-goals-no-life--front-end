@@ -19,7 +19,7 @@
   }
 
   &.noBorder::before {
-    background-color: transparent;
+    opacity: 0;
   }
 }
 

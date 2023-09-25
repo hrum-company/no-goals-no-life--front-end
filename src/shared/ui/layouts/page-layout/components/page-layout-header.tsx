@@ -1,8 +1,9 @@
 import classNames from 'classnames'
-import { CSSProperties, memo } from 'react'
+import { CSSProperties, memo, useContext } from 'react'
 
 import { useElementHeight } from 'shared/hooks'
 
+import { PageLayoutSizesContext } from '..'
 import classes from '../styles.module.scss'
 import { PageLayoutHeaderProps } from '../types'
 
@@ -11,8 +12,12 @@ export const PageLayoutHeader = memo(function PageLayoutHeader({
   className,
   noWrapperHeight,
 }: PageLayoutHeaderProps) {
+  // Context
+  const { setHeaderHeight } = useContext(PageLayoutSizesContext)
+
   // Hooks
   const [headerRef, headerHeight] = useElementHeight<HTMLDivElement>({
+    setter: setHeaderHeight,
     observeChange: !noWrapperHeight,
   })
 
