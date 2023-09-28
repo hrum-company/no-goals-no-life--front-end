@@ -13,7 +13,6 @@ import { BookCardProps } from './types'
 export const BookCard = memo(function BookCard({
   book,
 
-  title = 'Ваша книга целей',
   buttonSide,
 }: BookCardProps) {
   // Effector
@@ -44,7 +43,7 @@ export const BookCard = memo(function BookCard({
           <EmojiEventsOutlined />
         </CircularProgress>
         <Stack>
-          <Typography level="body-md">{title}</Typography>
+          <Typography level="body-md">Книга целей</Typography>
           <Typography level="title-lg">{book.name}</Typography>
           <Typography level="body-sm">Выполнено {progressValue}%</Typography>
         </Stack>

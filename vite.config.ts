@@ -3,8 +3,8 @@ import { defineConfig } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-const api = 'https://ngnl-back-end.onrender.com/'
-// const api = 'http://localhost:3000'
+// const api = 'https://ngnl-back-end.onrender.com/'
+const api = 'http://localhost:3000'
 
 // https://vitejs.dev/config/
 export default defineConfig({

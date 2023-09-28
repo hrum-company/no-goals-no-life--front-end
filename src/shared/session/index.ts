@@ -2,6 +2,7 @@ import { RouteInstance, RouteParams, RouteParamsAndQuery, chainRoute } from 'ato
 import { attach, createEvent, createStore, sample } from 'effector'
 
 import { User, authApi } from 'shared/api'
+import { $vkCurrentUser } from 'shared/vk-bridge/vk-current-user.model'
 
 enum AuthStatus {
   Initial = 0,
@@ -53,8 +54,9 @@ export function chainAuthorize<Params extends RouteParams>(
 
   sample({
     clock: sessionCheckStarted,
+    source: { vkUser: $vkCurrentUser },
     filter: route.$isOpened,
-    fn: () => ({}),
+    fn: ({ vkUser }) => ({ ...vkUser }),
     target: requestAuthFx,
   })
 
@@ -66,21 +68,3 @@ export function chainAuthorize<Params extends RouteParams>(
 }
 
 //#endregion
-
-//? Идеальный вариант
-// Начали проверку
-// Отправили запрос за токеном
-// Токена нет
-// Отправили запрос за юзером
-// Получили вк-юзера
-// Отправили запрос на авторизацию
-// Авторизировались
-// Сохранили токен
-
-//?
-// Начали проверку
-// Отправили запрос за токеном
-// Токен есть
-// Отправили запрос на проверку
-// Проверка прошла успешно
-//
