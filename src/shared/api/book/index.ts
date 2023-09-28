@@ -5,7 +5,7 @@ import { Book } from './types'
 
 //#region Find All
 
-const requestBookAllFx = createEffect<null, Book[]>(async () => {
+const requestBookAllFx = createEffect<void, Book[]>(async () => {
   return request<Book[]>({
     path: '/book',
   })
