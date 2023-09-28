@@ -1,7 +1,22 @@
-import { Book } from '../book'
-import { User } from '../user'
+import { createEffect } from 'effector'
 
-export interface FriendsBook {
-  user: User
-  list: Book
+import { request } from '../request'
+import { FriendsBook } from './types'
+
+//#region Find All
+
+type FindAllFrinedsGoalResponse = FriendsBook[]
+
+const requestFindAllFriendsBookFx = createEffect<void, FindAllFrinedsGoalResponse>(async () => {
+  return request<FindAllFrinedsGoalResponse>({
+    path: '/friends-book',
+  })
+})
+
+//#endregion
+
+export default {
+  requestFindAllFriendsBookFx,
 }
+
+export * from './types'
