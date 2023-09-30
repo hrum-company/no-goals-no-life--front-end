@@ -53,8 +53,8 @@ const editRequestFx = attach({
 
 const pushEditedBookFx = attach({
   effect: pushBookFx,
-  source: { books: $books },
-  mapParams: (book: Book, { books }) => ({ book, books }),
+  source: $books,
+  mapParams: (book: Book, books) => ({ item: book, items: books }),
 })
 
 //* Pendings

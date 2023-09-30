@@ -16,7 +16,7 @@ sample({
 
 sample({
   clock: currentRoute.opened,
-  source: { loaded: $$goalMark.$loadAllLoaded, pending: $$goalMark.loadAll.$pending },
+  source: { loaded: $$goalMark.loadAll.$alreadyLoaded, pending: $$goalMark.loadAll.$pending },
   filter: ({ loaded, pending }) => !loaded && !pending,
-  target: $$goalMark.loadAll.inited,
+  target: $$goalMark.loadAll.requested,
 })

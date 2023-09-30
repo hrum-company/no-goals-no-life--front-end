@@ -22,7 +22,7 @@ import classes from './styles.module.scss'
 
 export const HomePage = memo(function GoalsListPage() {
   // Effector
-  const [book, bookLoading] = useUnit([$$book.$item, $$book.loadAll.$pending])
+  const [book, loaded] = useUnit([$$book.$item, $$book.loadAll.$alreadyLoaded])
 
   return (
     <PageLayout>
@@ -34,7 +34,7 @@ export const HomePage = memo(function GoalsListPage() {
         <Stack spacing={2}>
           <BookHomePageCard />
 
-          <Div>{bookLoading ? <GoalListSkeleton /> : <GoalList goals={book?.goals || []} />}</Div>
+          <Div>{!loaded ? <GoalListSkeleton /> : <GoalList goals={book?.goals || []} />}</Div>
         </Stack>
       </PageLayoutContent>
 

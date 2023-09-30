@@ -1,1 +1,1 @@
-export * from './goal-mark.model'
+export * from './$$goal-mark'

@@ -1,1 +1,1 @@
-export * from './friends-book.model'
+export * from './$$friends-book'

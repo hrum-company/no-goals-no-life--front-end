@@ -5,7 +5,7 @@ import { request } from '../request'
 
 type FindAllGoalMarkResponse = GoalMark[]
 
-const requestFindAllGoalMarkFx = createEffect<null, FindAllGoalMarkResponse>(async () => {
+const requestFindAllGoalMarkFx = createEffect<void, FindAllGoalMarkResponse>(async () => {
   return request({
     path: '/goal-mark',
   })

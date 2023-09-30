@@ -6,7 +6,7 @@ import { $$goalMark } from 'entities/goal-mark'
 
 export const EditGoalMarkIdFormItem = memo(function EditGoalMarkIdFormItem() {
   // Effector
-  const [marks, loaded] = useUnit([$$goalMark.$items, $$goalMark.$loadAllLoaded])
+  const [marks, loaded] = useUnit([$$goalMark.$items, $$goalMark.loadAll.$alreadyLoaded])
   const markId = useUnit($$goal.toEdit.markId)
 
   return (

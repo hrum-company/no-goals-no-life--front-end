@@ -10,10 +10,15 @@ import { $$book, BookPageCard, BookPageCardSkeleton } from 'entities/book'
 import { VerticalButton } from 'shared/ui'
 
 export const BookHomePageCard = memo(function BookHomePageCard() {
-  const [book] = useUnit([$$book.$item])
+  const [book, loaded] = useUnit([$$book.$item, $$book.loadAll.$alreadyLoaded])
+
+  if (!loaded) {
+    return <BookPageCardSkeleton />
+  }
 
   if (!book) {
-    return <BookPageCardSkeleton />
+    // TODO: Должен выводиться блок с информацией о том, что книги нет
+    return null
   }
 
   return (
