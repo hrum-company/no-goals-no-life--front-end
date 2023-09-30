@@ -5,12 +5,15 @@ import { Book, api } from 'shared/api'
 import { $activeBookId, $books, activeBookChanged } from './core'
 
 //* Api
+
 const requestFx = attach({ effect: api.book.requestBookAllFx })
 
 //* Events
+
 const allBooksRequested = createEvent()
 
 //* Effects
+
 const validateActiveBookIdFx = createEffect(
   async ({ activeBookId, loadedBooks }: { activeBookId: number | null; loadedBooks: Book[] }) => {
     if (!loadedBooks.length) {
@@ -32,6 +35,7 @@ const validateActiveBookIdFx = createEffect(
 )
 
 //* Bussines Logic
+
 sample({
   clock: allBooksRequested,
   source: { pending: requestFx.pending },

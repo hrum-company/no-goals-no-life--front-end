@@ -1,4 +1,5 @@
 import { attach, combine, createEffect, createEvent, createStore, sample } from 'effector'
+import { some } from 'patronum'
 
 import { Book, api } from 'shared/api'
 import { EditableFieldFactory } from 'shared/helpers/effector'
@@ -6,9 +7,11 @@ import { EditableFieldFactory } from 'shared/helpers/effector'
 import { $books, pushBookFx } from './core'
 
 //* API
+
 const requestFx = attach({ effect: api.book.requestEditBookFx })
 
 //* Stores
+
 const $editableBookId = createStore<number | null>(null)
 const $editableBook = combine($books, $editableBookId, (books, bookId) => {
   if (!books.length) {
@@ -19,22 +22,26 @@ const $editableBook = combine($books, $editableBookId, (books, bookId) => {
 })
 
 //* Fields
-const fieldName = EditableFieldFactory<string>('')
-const fieldHidden = EditableFieldFactory<boolean>(false)
+
+export const editFieldName = EditableFieldFactory<string>('')
+export const editFieldHidden = EditableFieldFactory<boolean>(false)
 
 //* Events
-const fieldsReseted = createEvent()
-const editBookRequested = createEvent()
+
+const editableBookIdChanged = createEvent<number | null>()
+export const editFieldsReseted = createEvent()
+export const editBookRequested = createEvent()
 
 //* Effects
+
 const resetFieldsFx = createEffect(({ name, hidden }: { name: string; hidden: boolean }) => {
-  fieldName.changed(name)
-  fieldHidden.changed(hidden)
+  editFieldName.changed(name)
+  editFieldHidden.changed(hidden)
 })
 
 const editRequestFx = attach({
   effect: requestFx,
-  source: { id: $editableBookId, name: fieldName.$value, hidden: fieldHidden.$value },
+  source: { id: $editableBookId, name: editFieldName.$value, hidden: editFieldHidden.$value },
   mapParams: (_, { id, ...data }) => ({
     id: id || 0,
     ...data,
@@ -47,10 +54,20 @@ const pushEditedBookFx = attach({
   mapParams: (book: Book, { books }) => ({ book, books }),
 })
 
+//* Pendings
+
+const $editPending = some({
+  stores: [editRequestFx.pending, pushEditedBookFx.pending],
+  predicate: true,
+})
+
 //* Bussines Logic
+
+$editableBookId.on(editableBookIdChanged, (_, id) => id)
+
 // Сброс при вызове события сброса
 sample({
-  clock: fieldsReseted,
+  clock: editFieldsReseted,
   source: { book: $editableBook },
   filter: ({ book }) => !!book,
   fn: ({ book }) => book as Book,
@@ -68,6 +85,8 @@ sample({
 // Отправляем запрос на изменение
 sample({
   clock: editBookRequested,
+  source: $editPending,
+  filter: (pending) => !pending,
   target: editRequestFx,
 })
 
@@ -79,3 +98,18 @@ sample({
 
 // Сохраняем в стор пропушенные значения
 $books.on(pushEditedBookFx.doneData, (_, books) => books)
+
+//* Exports
+
+export const edit = {
+  $pending: $editPending,
+
+  fields: {
+    name: editFieldName,
+    hidden: editFieldHidden,
+  },
+
+  editableBookChanged: editableBookIdChanged,
+  reseted: editFieldsReseted,
+  requested: editBookRequested,
+}

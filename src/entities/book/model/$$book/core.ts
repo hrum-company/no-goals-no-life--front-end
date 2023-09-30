@@ -1,10 +1,12 @@
-import { combine, createEffect, createEvent, createStore, sample } from 'effector'
+import { combine, createEffect, createEvent, createStore } from 'effector'
 
 import { Book } from 'shared/api'
 
 //* Stores
+
 export const $books = createStore<Book[]>([])
 export const $activeBookId = createStore<number | null>(null)
+
 export const $book = combine($books, $activeBookId, (books, activeBookId) => {
   if (!books.length) {
     return null
@@ -14,9 +16,11 @@ export const $book = combine($books, $activeBookId, (books, activeBookId) => {
 })
 
 //* Events
+
 export const activeBookChanged = createEvent<number | null>()
 
 //* Effects
+
 export const pushBookFx = createEffect(({ book, books }: { book: Book; books: Book[] }) => {
   const bookIndex = books.findIndex(({ id }) => id === book.id)
 
@@ -30,4 +34,5 @@ export const pushBookFx = createEffect(({ book, books }: { book: Book; books: Bo
 })
 
 //* Bussines Logic
+
 $activeBookId.on(activeBookChanged, (_, id) => id)
