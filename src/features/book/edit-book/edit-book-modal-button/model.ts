@@ -27,7 +27,7 @@ const pushSuccessAlertFx = createEffect(() => {
 
 sample({
   clock: editBookModalSubmited,
-  target: $$book.edit.inited,
+  target: $$book.edit.requested,
 })
 
 sample({

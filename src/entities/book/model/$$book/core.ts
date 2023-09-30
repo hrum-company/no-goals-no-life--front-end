@@ -30,7 +30,7 @@ export const pushBookFx = createEffect(({ book, books }: { book: Book; books: Bo
 
   books.splice(bookIndex, 1, book)
 
-  return books
+  return [...books]
 })
 
 //* Bussines Logic

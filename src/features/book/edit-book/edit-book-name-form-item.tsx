@@ -5,7 +5,7 @@ import { $$book, BookNameFormItem } from 'entities/book'
 
 export const EditBookNameFormItem = memo(function EditBookNameFormItem() {
   // Effector
-  const name = useUnit($$book.toEdit.name)
+  const name = useUnit($$book.edit.fields.name)
 
   return (
     <BookNameFormItem

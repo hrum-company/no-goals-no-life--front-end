@@ -1,5 +1,5 @@
 import { attach, combine, createEffect, createEvent, createStore, sample } from 'effector'
-import { some } from 'patronum'
+import { reset, some } from 'patronum'
 
 import { Book, api } from 'shared/api'
 import { EditableFieldFactory } from 'shared/helpers/effector'
@@ -23,18 +23,21 @@ const $editableBook = combine($books, $editableBookId, (books, bookId) => {
 
 //* Fields
 
-export const editFieldName = EditableFieldFactory<string>('')
-export const editFieldHidden = EditableFieldFactory<boolean>(false)
+const editFieldName = EditableFieldFactory<string>('')
+const editFieldHidden = EditableFieldFactory<boolean>(false)
 
 //* Events
 
+const reseted = createEvent()
+
 const editableBookIdChanged = createEvent<number | null>()
-export const editFieldsReseted = createEvent()
-export const editBookRequested = createEvent()
+
+const editRequested = createEvent()
+const done = createEvent()
 
 //* Effects
 
-const resetFieldsFx = createEffect(({ name, hidden }: { name: string; hidden: boolean }) => {
+const updateFieldsFx = createEffect(({ name, hidden }: { name: string; hidden: boolean }) => {
   editFieldName.changed(name)
   editFieldHidden.changed(hidden)
 })
@@ -65,26 +68,28 @@ const $editPending = some({
 
 $editableBookId.on(editableBookIdChanged, (_, id) => id)
 
-// Сброс при вызове события сброса
-sample({
-  clock: editFieldsReseted,
-  source: { book: $editableBook },
-  filter: ({ book }) => !!book,
-  fn: ({ book }) => book as Book,
-  target: resetFieldsFx,
-})
-
 // Сброс при обновлении активного book
 sample({
   clock: $editableBook.updates,
   filter: (book) => !!book,
   fn: (book) => book as Book,
-  target: resetFieldsFx,
+  target: updateFieldsFx,
+})
+
+sample({
+  clock: $editableBookId.updates,
+  filter: (id) => !id,
+  target: reseted,
+})
+
+reset({
+  clock: reseted,
+  target: [editFieldName.$value, editFieldHidden.$value],
 })
 
 // Отправляем запрос на изменение
 sample({
-  clock: editBookRequested,
+  clock: editRequested,
   source: $editPending,
   filter: (pending) => !pending,
   target: editRequestFx,
@@ -94,6 +99,12 @@ sample({
 sample({
   clock: editRequestFx.doneData,
   target: pushEditedBookFx,
+})
+
+// Done
+sample({
+  clock: editRequestFx.done,
+  target: done,
 })
 
 // Сохраняем в стор пропушенные значения
@@ -110,6 +121,6 @@ export const edit = {
   },
 
   editableBookChanged: editableBookIdChanged,
-  reseted: editFieldsReseted,
-  requested: editBookRequested,
+  requested: editRequested,
+  done: done,
 }

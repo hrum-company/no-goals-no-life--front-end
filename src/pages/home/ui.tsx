@@ -2,7 +2,7 @@ import { Stack } from '@mui/joy'
 import { useUnit } from 'effector-react/compat'
 import { memo } from 'react'
 
-import { BookCard, BookCardSkeleton, BookHomePageCard, EditBookModal } from 'widgets/book'
+import { BookHomePageCard, EditBookModal } from 'widgets/book'
 import { Navigation } from 'widgets/navigation'
 
 import { $$book } from 'entities/book'

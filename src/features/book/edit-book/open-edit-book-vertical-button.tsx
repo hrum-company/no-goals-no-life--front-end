@@ -1,14 +1,23 @@
 import { Icon28SettingsOutline } from '@vkontakte/icons'
 import { useUnit } from 'effector-react'
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 
-import { $$editBookModal } from 'entities/book'
+import { $$book, $$editBookModal } from 'entities/book'
 
 import { VerticalButton } from 'shared/ui'
 
 export const OpenEditBookVerticalButton = memo(function OpenEditBookVerticalButton() {
   // Effector
-  const [editBookModalOpened] = useUnit([$$editBookModal.opened])
+  const [book, editBookModalOpened] = useUnit([$$book.$item, $$editBookModal.opened])
+
+  // Handlers
+  const handleClicked = useCallback(() => {
+    if (!book) {
+      return null
+    }
+
+    editBookModalOpened(book.id)
+  }, [book, editBookModalOpened])
 
   return (
     <VerticalButton
@@ -16,7 +25,7 @@ export const OpenEditBookVerticalButton = memo(function OpenEditBookVerticalButt
       fullWidth
       icon={<Icon28SettingsOutline fill="currentColor" />}
       title="Настройки"
-      onClick={editBookModalOpened}
+      onClick={handleClicked}
     />
   )
 })

@@ -10,6 +10,5 @@ export const authorizedRoute = chainAuthorize(currentRoute)
 
 sample({
   clock: [authorizedRoute.$isOpened],
-  fn: () => null,
-  target: $$book.loadAll.inited,
+  target: $$book.loadAll.requested,
 })

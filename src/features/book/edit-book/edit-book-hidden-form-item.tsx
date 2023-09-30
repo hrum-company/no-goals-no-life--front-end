@@ -5,7 +5,7 @@ import { $$book, BookHiddenFormItem } from 'entities/book'
 
 export const EditBookHiddenFormItem = memo(function EditBookHiddenFormItem() {
   // Effector
-  const hidden = useUnit($$book.toEdit.hidden)
+  const hidden = useUnit($$book.edit.fields.hidden)
 
   return (
     <BookHiddenFormItem

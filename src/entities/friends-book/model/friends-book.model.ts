@@ -1,5 +1,4 @@
 import { Store, attach, createStore, sample } from 'effector'
-import { debug } from 'patronum'
 
 import { FriendsBook, api } from 'shared/api'
 import { ModelEvent, ModelEventFactory } from 'shared/helpers/effector'
@@ -13,8 +12,6 @@ const requestFindAllFriendsBookFx = attach({ effect: api.friendsBook.requestFind
 //#region //* Store
 
 const $items = createStore<FriendsBook[]>([])
-
-debug($items)
 
 //#endregion
 
